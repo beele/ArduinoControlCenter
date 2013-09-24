@@ -16,6 +16,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,10 +27,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -56,7 +57,21 @@
   <PropertyGroup>
     <StartupObject>ArduinoControlCenter.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>10D3AE96EB134DA9E0A25F774C0C7B0807AF8636</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ArduinoControlCenter_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="OpenHardwareMonitorLib, Version=0.5.1.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Utils\HardwareMonitor\OpenHardwareMonitorLib.dll</HintPath>
@@ -84,6 +99,7 @@
     <Compile Include="Controller\Modes\FadeColorMode.cs" />
     <Compile Include="Controller\HardwareController.cs" />
     <Compile Include="Model\HardwareModel.cs" />
+    <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="Utils\HardwareMonitor\LinearDataPoint.cs" />
     <Compile Include="Utils\HardwareMonitor\LinearFunctionInterpolator.cs" />
     <Compile Include="Utils\HardwareMonitor\UpdateVisitor.cs" />
@@ -94,6 +110,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\Messenger\ColorModelMessage.cs" />
+    <Compile Include="Utils\Messenger\HardwareModelMessage.cs" />
     <Compile Include="Utils\Messenger\MessageEnums.cs" />
     <Compile Include="Utils\Messenger\TinyMessenger.cs" />
     <Compile Include="Views\ColorPickerDialog.cs">
@@ -120,7 +137,6 @@
     <Compile Include="Utils\ColorTools\BitmapUtils.cs" />
     <Compile Include="Utils\ColorTools\ColorUtils.cs" />
     <Compile Include="Model\ColorModel.cs" />
-    <Compile Include="Views\TinyMessageHub.cs" />
     <EmbeddedResource Include="Components\Colorwheel\ColorWheelControl.resx">
       <DependentUpon>ColorWheelControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,6 +160,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ArduinoControlCenter_TemporaryKey.pfx" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

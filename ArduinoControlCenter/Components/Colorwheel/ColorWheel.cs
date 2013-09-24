@@ -146,6 +146,10 @@ namespace Components.ColorWheel
             {
                 return selectedColor;
             }
+            set
+            {
+                selectedColor = value;
+            }
         }
 
         void IDisposable.Dispose()

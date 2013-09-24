@@ -5,6 +5,7 @@ using ArduinoControlCenter.Controller;
 using TinyMessenger;
 using ArduinoControlCenter.Model;
 using ArduinoControlCenter.Utils.Messenger;
+using OpenHardwareMonitor.Hardware;
 
 namespace ArduinoControlCenter.Views
 {
@@ -15,7 +16,7 @@ namespace ArduinoControlCenter.Views
 
         public TinyMessengerHub messageHub;
         public ColorModel colorModel;
-        public HardwareModel temperatureModel;
+        public HardwareModel hardwareModel;
 
         public ColorPickerDialog startPicker;
         public ColorPickerDialog stopPicker;
@@ -23,31 +24,6 @@ namespace ArduinoControlCenter.Views
         public MainForm()
         {
             InitializeComponent();
-        }
-
-        public void init(ColorModel colorModel, HardwareModel temperatureModel, TinyMessengerHub messageHub) 
-        {
-            this.colorModel = colorModel;
-            this.temperatureModel = temperatureModel;
-            this.messageHub = messageHub;
-
-            messageHub.Subscribe<ColorModelMessage>((m) => colorModelUpdated(m.Content));
-        }
-
-        private void colorModelUpdated(COLOR_FIELDS val)
-        {
-            switch (val)
-            {
-                case COLOR_FIELDS.COLOR:
-                    this.Invoke(new MethodInvoker(colorChanged));
-                    break;
-                case COLOR_FIELDS.FPS:
-                    this.Invoke(new MethodInvoker(fpsChanged));
-                    break;
-                case COLOR_FIELDS.STATUS:
-                    this.Invoke(new MethodInvoker(updateStatus));
-                    break;
-            }
         }
 
         //Form load: instanciate all new required classes
@@ -59,10 +35,7 @@ namespace ArduinoControlCenter.Views
         //Init the GUI, set all the parts to show the correct data.
         private void initGUI()
         {
-            //Color wheel
-            colorWheel.ColorChanged += new EventHandler(colorWheel_ColorChanged);
-            colorWheel.nudBrightness.Value = 255;
-            colorWheel_ColorChanged(null, null);
+            //Color wheel actions are done in colorWheel_Load() method to prevent errors!
 
             //Color picker dialogs
             startPicker = new ColorPickerDialog();
@@ -82,24 +55,65 @@ namespace ArduinoControlCenter.Views
             int[] pinNumbers2 = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
             int[] pinNumbers3 = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
 
-            cmbRed.DataSource = pinNumbers;
-            cmbGreen.DataSource = pinNumbers2;
-            cmbBlue.DataSource = pinNumbers3;
-
-            cmbRed.SelectedIndex = -1;
-            cmbGreen.SelectedIndex = -1;
-            cmbBlue.SelectedIndex = -1;
-
-            cmbRed.Text = "pin";
-            cmbGreen.Text = "pin";
-            cmbBlue.Text = "pin";
-
             //Trackbars
             tbSmoothScreen.Minimum = 1;
             tbSmoothScreen.Maximum = 500;
 
             tbSmoothFade.Minimum = 1;
             tbSmoothFade.Maximum = 30;
+        }
+
+        //Init of colorwheel is done when it is loaded!
+        private void colorWheel_Load(object sender, EventArgs e)
+        {
+            //Color wheel
+            colorWheel.ColorChanged += new EventHandler(colorWheel_ColorChanged);
+            //Set the initial color and brightness!
+            colorWheel.nudBrightness.Value = 255;
+            colorWheel.SelectedColor = Color.White;
+            colorWheel_ColorChanged(null, null);
+        }
+
+        public void init(ColorModel colorModel, HardwareModel hardwareModel, TinyMessengerHub messageHub)
+        {
+            this.colorModel = colorModel;
+            this.hardwareModel = hardwareModel;
+            this.messageHub = messageHub;
+
+            messageHub.Subscribe<ColorModelMessage>((m) => colorModelUpdated(m.Content));
+            messageHub.Subscribe<HardwareModelMessage>((m) => { this.Invoke(new MethodInvoker(hardwareModelUpdated)); });
+        }
+
+        private void colorModelUpdated(COLOR_FIELDS val)
+        {
+            switch (val)
+            {
+                case COLOR_FIELDS.COLOR:
+                    this.Invoke(new MethodInvoker(colorChanged));
+                    break;
+                case COLOR_FIELDS.FPS:
+                    this.Invoke(new MethodInvoker(fpsChanged));
+                    break;
+                case COLOR_FIELDS.STATUS:
+                    this.Invoke(new MethodInvoker(updateStatus));
+                    break;
+            }
+        }
+
+        private void hardwareModelUpdated()
+        {
+            lblCore1.Text = (hardwareModel.sensors[0].Value + "°C");
+            lblCore2.Text = (hardwareModel.sensors[1].Value + "°C");
+            lblCore3.Text = (hardwareModel.sensors[2].Value + "°C");
+            lblCore4.Text = (hardwareModel.sensors[3].Value + "°C");
+
+            prgCore1.Value = (int)hardwareModel.sensors[0].Value;
+            prgCore2.Value = (int)hardwareModel.sensors[1].Value;
+            prgCore3.Value = (int)hardwareModel.sensors[2].Value;
+            prgCore4.Value = (int)hardwareModel.sensors[3].Value;
+
+            lblPWM.Text = hardwareModel.calculatedSpeed + " % PWM";
+            prgPWM.Value = hardwareModel.calculatedSpeed;
         }
 
         //When the FPS has changed!
@@ -294,7 +308,7 @@ namespace ArduinoControlCenter.Views
         /******************************************************
         *************ARDUINO model SECTION******************
         *******************************************************/
-        //Comm list refresh clicked
+        //Com list refresh clicked
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             String[] comms = System.IO.Ports.SerialPort.GetPortNames();
@@ -302,7 +316,7 @@ namespace ArduinoControlCenter.Views
             cmbComms.SelectedIndex = comms.Length - 1;
         }
 
-        //Comm action clicked (conntect/disconnect comm port)
+        //Com action clicked (conntect/disconnect comm port)
         private void btnCommAction_Click(object sender, EventArgs e)
         {
             if (btnCommAction.Text == "Connect")
@@ -316,28 +330,6 @@ namespace ArduinoControlCenter.Views
                 btnCommAction.Text = "Connect";
             }
         }
-
-        //Generate arduino code button clicked
-        private void generateCode_Click(object sender, EventArgs e)
-        {
-            if (cmbRed.SelectedIndex == -1 || cmbGreen.SelectedIndex == -1 || cmbBlue.SelectedIndex == -1)
-            {
-                MessageBox.Show("Please enter a value for all the pins!", "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else if (cmbRed.SelectedIndex == cmbGreen.SelectedIndex || cmbRed.SelectedIndex == cmbBlue.SelectedIndex || cmbGreen.SelectedIndex == cmbBlue.SelectedIndex)
-            {
-                MessageBox.Show("Duplicate pin values are not allowed!", "Duplicates", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
-            {
-                GeneratedCodeForm codeForm = new GeneratedCodeForm();
-                codeForm.red = cmbRed.SelectedIndex;
-                codeForm.green = cmbGreen.SelectedIndex;
-                codeForm.blue = cmbBlue.SelectedIndex;
-                codeForm.Show();
-            }
-        }
-
         #endregion
     }
 }

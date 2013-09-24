@@ -1,5 +1,6 @@
 ﻿using ArduinoControlCenter.Model;
 using ArduinoControlCenter.Utils.HardwareMonitor;
+using ArduinoControlCenter.Utils.Messenger;
 using ArduinoControlCenter.Views;
 using OpenHardwareMonitor.Hardware;
 using OpenHardwareMonitor.WMI;
@@ -60,7 +61,7 @@ namespace ArduinoControlCenter.Controller
                 {
                     foreach (ISensor sensor in hw.Sensors)
                     {
-                        if (sensor.SensorType == SensorType.Temperature)
+                        if (sensor.SensorType == SensorType.Temperature && !sensor.Name.ToLower().Equals("cpu package"))
                         {
                             _sensors.Add(sensor);
                         }
@@ -89,7 +90,7 @@ namespace ArduinoControlCenter.Controller
                 {
                     int sensorTemp = (int)sensor.Value;
 
-                    Console.WriteLine("Temp: " + sensorTemp + "°C");
+                    //Console.WriteLine("Temp: " + sensorTemp + "°C");
                     calculatedTemp += (int)sensorTemp;
                     if (sensorTemp > highestTemp)
                     {
@@ -100,13 +101,14 @@ namespace ArduinoControlCenter.Controller
                 _hardwareModel.calculatedCPUTemperature = calculatedTemp;
                 _hardwareModel.highestCoreTemp = highestTemp;
                 _hardwareModel.calculatedSpeed = _linearDataInterpolator.extrapolateSpeedFromTemperature(highestTemp).speed;
+                _messageHub.Publish(new HardwareModelMessage(this,"update"));
 
-                Console.WriteLine("-----------------------------------------");
+                /*Console.WriteLine("-----------------------------------------");
                 Console.WriteLine("Highest core temperature: " + highestTemp);
                 Console.WriteLine("Calculated temperature average: " + calculatedTemp);
                 Console.WriteLine("Calculated pwm speed: " + _hardwareModel.calculatedSpeed);
                 Console.WriteLine("-----------------------------------------");
-                Console.WriteLine("-----------------------------------------");
+                Console.WriteLine("-----------------------------------------");*/
                 Thread.Sleep(5000);
             }
         }

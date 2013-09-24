@@ -466,6 +466,11 @@ namespace Components.ColorWheel
         changeType = ChangeStyle.RGB;
         RGB = new ColorHandler.RGB(value.R, value.G, value.B);
         HSV = ColorHandler.RGBtoHSV(RGB);
+        if (myColorWheel != null)
+        {
+            myColorWheel.Color = value;
+        }
+        
       }
     }
 
