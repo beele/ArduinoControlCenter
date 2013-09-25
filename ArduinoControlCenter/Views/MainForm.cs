@@ -115,6 +115,12 @@ namespace ArduinoControlCenter.Views
             lblPWM.Text = hardwareModel.calculatedSpeed + "%";
             prgPWM.Value = hardwareModel.calculatedSpeed;
 
+            lblPWM1.Text = hardwareModel.dataPoints[0].speed + "%";
+            lblPWM2.Text = hardwareModel.dataPoints[1].speed + "%";
+            lblPWM3.Text = hardwareModel.dataPoints[2].speed + "%";
+            lblPWM4.Text = hardwareModel.dataPoints[3].speed + "%";
+            lblPWM5.Text = hardwareModel.dataPoints[4].speed + "%";
+
             tb1.Value = hardwareModel.dataPoints[0].speed;
             tb2.Value = hardwareModel.dataPoints[1].speed;
             tb3.Value = hardwareModel.dataPoints[2].speed;
@@ -349,26 +355,31 @@ namespace ArduinoControlCenter.Views
         private void tb1_ValueChanged(object sender, EventArgs e)
         {
             hardwareModel.dataPoints[0].speed = tb1.Value;
+            lblPWM1.Text = hardwareModel.dataPoints[0].speed + "%";
         }
 
         private void tb2_ValueChanged(object sender, EventArgs e)
         {
             hardwareModel.dataPoints[1].speed = tb2.Value;
+            lblPWM2.Text = hardwareModel.dataPoints[1].speed + "%";
         }
 
         private void tb3_ValueChanged(object sender, EventArgs e)
         {
             hardwareModel.dataPoints[2].speed = tb3.Value;
+            lblPWM3.Text = hardwareModel.dataPoints[2].speed + "%";
         }
 
         private void tb4_ValueChanged(object sender, EventArgs e)
         {
             hardwareModel.dataPoints[3].speed = tb4.Value;
+            lblPWM4.Text = hardwareModel.dataPoints[3].speed + "%";
         }
 
         private void tb5_ValueChanged(object sender, EventArgs e)
         {
             hardwareModel.dataPoints[4].speed = tb5.Value;
+            lblPWM5.Text = hardwareModel.dataPoints[4].speed + "%";
         }
 
         private void ns1_ValueChanged(object sender, EventArgs e)

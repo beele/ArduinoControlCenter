@@ -33,7 +33,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.stbrConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.gbmodel = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkBootWithWindoos = new System.Windows.Forms.CheckBox();
+            this.chkReconnectCom = new System.Windows.Forms.CheckBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.cmbComms = new System.Windows.Forms.ComboBox();
             this.btnCommAction = new System.Windows.Forms.Button();
@@ -46,6 +47,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.lblCurrentManual = new System.Windows.Forms.Label();
+            this.colorWheel = new Components.ColorWheel.ColorChooser1();
             this.pnlColorManual = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lblMax = new System.Windows.Forms.Label();
@@ -74,6 +76,12 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.lblPWM = new System.Windows.Forms.Label();
+            this.prgPWM = new System.Windows.Forms.ProgressBar();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.ns5 = new System.Windows.Forms.NumericUpDown();
             this.ns4 = new System.Windows.Forms.NumericUpDown();
             this.ns3 = new System.Windows.Forms.NumericUpDown();
@@ -102,14 +110,12 @@
             this.prgCore1 = new System.Windows.Forms.ProgressBar();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.prgPWM = new System.Windows.Forms.ProgressBar();
-            this.lblPWM = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.ti1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.colorWheel = new Components.ColorWheel.ColorChooser1();
+            this.lblPWM1 = new System.Windows.Forms.Label();
+            this.lblPWM2 = new System.Windows.Forms.Label();
+            this.lblPWM3 = new System.Windows.Forms.Label();
+            this.lblPWM4 = new System.Windows.Forms.Label();
+            this.lblPWM5 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.gbmodel.SuspendLayout();
             this.tabcon.SuspendLayout();
@@ -151,7 +157,8 @@
             // 
             // gbmodel
             // 
-            this.gbmodel.Controls.Add(this.checkBox1);
+            this.gbmodel.Controls.Add(this.chkBootWithWindoos);
+            this.gbmodel.Controls.Add(this.chkReconnectCom);
             this.gbmodel.Controls.Add(this.btnRefresh);
             this.gbmodel.Controls.Add(this.cmbComms);
             this.gbmodel.Controls.Add(this.btnCommAction);
@@ -164,15 +171,25 @@
             this.gbmodel.TabStop = false;
             this.gbmodel.Text = "Arduino Control";
             // 
-            // checkBox1
+            // chkBootWithWindoos
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(11, 131);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(99, 17);
-            this.checkBox1.TabIndex = 18;
-            this.checkBox1.Text = "Auto-reconnect";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkBootWithWindoos.AutoSize = true;
+            this.chkBootWithWindoos.Location = new System.Drawing.Point(15, 221);
+            this.chkBootWithWindoos.Name = "chkBootWithWindoos";
+            this.chkBootWithWindoos.Size = new System.Drawing.Size(98, 17);
+            this.chkBootWithWindoos.TabIndex = 20;
+            this.chkBootWithWindoos.Text = "Boot on startup";
+            this.chkBootWithWindoos.UseVisualStyleBackColor = true;
+            // 
+            // chkReconnectCom
+            // 
+            this.chkReconnectCom.AutoSize = true;
+            this.chkReconnectCom.Location = new System.Drawing.Point(11, 131);
+            this.chkReconnectCom.Name = "chkReconnectCom";
+            this.chkReconnectCom.Size = new System.Drawing.Size(99, 17);
+            this.chkReconnectCom.TabIndex = 18;
+            this.chkReconnectCom.Text = "Auto-reconnect";
+            this.chkReconnectCom.UseVisualStyleBackColor = true;
             // 
             // btnRefresh
             // 
@@ -298,6 +315,15 @@
             this.lblCurrentManual.Size = new System.Drawing.Size(67, 13);
             this.lblCurrentManual.TabIndex = 14;
             this.lblCurrentManual.Text = "Current color";
+            // 
+            // colorWheel
+            // 
+            this.colorWheel.Location = new System.Drawing.Point(94, 61);
+            this.colorWheel.Name = "colorWheel";
+            this.colorWheel.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.colorWheel.Size = new System.Drawing.Size(243, 190);
+            this.colorWheel.TabIndex = 11;
+            this.colorWheel.Load += new System.EventHandler(this.colorWheel_Load);
             // 
             // pnlColorManual
             // 
@@ -585,6 +611,11 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblPWM5);
+            this.groupBox2.Controls.Add(this.lblPWM4);
+            this.groupBox2.Controls.Add(this.lblPWM3);
+            this.groupBox2.Controls.Add(this.lblPWM2);
+            this.groupBox2.Controls.Add(this.lblPWM1);
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.lblPWM);
             this.groupBox2.Controls.Add(this.prgPWM);
@@ -624,6 +655,59 @@
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fan Control";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(14, 182);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(34, 13);
+            this.label17.TabIndex = 32;
+            this.label17.Text = "PWM";
+            // 
+            // lblPWM
+            // 
+            this.lblPWM.AutoSize = true;
+            this.lblPWM.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblPWM.Location = new System.Drawing.Point(320, 183);
+            this.lblPWM.Name = "lblPWM";
+            this.lblPWM.Size = new System.Drawing.Size(25, 13);
+            this.lblPWM.TabIndex = 31;
+            this.lblPWM.Text = "# %";
+            // 
+            // prgPWM
+            // 
+            this.prgPWM.Location = new System.Drawing.Point(55, 177);
+            this.prgPWM.Name = "prgPWM";
+            this.prgPWM.Size = new System.Drawing.Size(260, 23);
+            this.prgPWM.TabIndex = 30;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(339, 394);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(18, 13);
+            this.label16.TabIndex = 29;
+            this.label16.Text = "°C";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 393);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(34, 13);
+            this.label15.TabIndex = 28;
+            this.label15.Text = "Temp";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 318);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(45, 13);
+            this.label14.TabIndex = 27;
+            this.label14.Text = "% PWM";
             // 
             // ns5
             // 
@@ -672,44 +756,44 @@
             // 
             // tb5
             // 
-            this.tb5.Location = new System.Drawing.Point(298, 242);
+            this.tb5.Location = new System.Drawing.Point(298, 256);
             this.tb5.Maximum = 100;
             this.tb5.Name = "tb5";
             this.tb5.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tb5.Size = new System.Drawing.Size(45, 150);
+            this.tb5.Size = new System.Drawing.Size(45, 140);
             this.tb5.TabIndex = 21;
             this.tb5.TickFrequency = 5;
             this.tb5.ValueChanged += new System.EventHandler(this.tb5_ValueChanged);
             // 
             // tb4
             // 
-            this.tb4.Location = new System.Drawing.Point(235, 242);
+            this.tb4.Location = new System.Drawing.Point(235, 256);
             this.tb4.Maximum = 100;
             this.tb4.Name = "tb4";
             this.tb4.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tb4.Size = new System.Drawing.Size(45, 150);
+            this.tb4.Size = new System.Drawing.Size(45, 140);
             this.tb4.TabIndex = 20;
             this.tb4.TickFrequency = 5;
             this.tb4.ValueChanged += new System.EventHandler(this.tb4_ValueChanged);
             // 
             // tb3
             // 
-            this.tb3.Location = new System.Drawing.Point(174, 242);
+            this.tb3.Location = new System.Drawing.Point(174, 256);
             this.tb3.Maximum = 100;
             this.tb3.Name = "tb3";
             this.tb3.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tb3.Size = new System.Drawing.Size(45, 150);
+            this.tb3.Size = new System.Drawing.Size(45, 140);
             this.tb3.TabIndex = 19;
             this.tb3.TickFrequency = 5;
             this.tb3.ValueChanged += new System.EventHandler(this.tb3_ValueChanged);
             // 
             // tb2
             // 
-            this.tb2.Location = new System.Drawing.Point(110, 242);
+            this.tb2.Location = new System.Drawing.Point(110, 256);
             this.tb2.Maximum = 100;
             this.tb2.Name = "tb2";
             this.tb2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tb2.Size = new System.Drawing.Size(45, 150);
+            this.tb2.Size = new System.Drawing.Size(45, 140);
             this.tb2.TabIndex = 18;
             this.tb2.TickFrequency = 5;
             this.tb2.ValueChanged += new System.EventHandler(this.tb2_ValueChanged);
@@ -717,11 +801,11 @@
             // tb1
             // 
             this.tb1.LargeChange = 10;
-            this.tb1.Location = new System.Drawing.Point(49, 242);
+            this.tb1.Location = new System.Drawing.Point(49, 256);
             this.tb1.Maximum = 100;
             this.tb1.Name = "tb1";
             this.tb1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tb1.Size = new System.Drawing.Size(45, 150);
+            this.tb1.Size = new System.Drawing.Size(45, 140);
             this.tb1.SmallChange = 5;
             this.tb1.TabIndex = 17;
             this.tb1.TickFrequency = 5;
@@ -889,59 +973,6 @@
             this.lineShape1.Y1 = 196;
             this.lineShape1.Y2 = 196;
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 304);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(45, 13);
-            this.label14.TabIndex = 27;
-            this.label14.Text = "% PWM";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 393);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(34, 13);
-            this.label15.TabIndex = 28;
-            this.label15.Text = "Temp";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(339, 394);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(18, 13);
-            this.label16.TabIndex = 29;
-            this.label16.Text = "°C";
-            // 
-            // prgPWM
-            // 
-            this.prgPWM.Location = new System.Drawing.Point(55, 177);
-            this.prgPWM.Name = "prgPWM";
-            this.prgPWM.Size = new System.Drawing.Size(260, 23);
-            this.prgPWM.TabIndex = 30;
-            // 
-            // lblPWM
-            // 
-            this.lblPWM.AutoSize = true;
-            this.lblPWM.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lblPWM.Location = new System.Drawing.Point(320, 183);
-            this.lblPWM.Name = "lblPWM";
-            this.lblPWM.Size = new System.Drawing.Size(25, 13);
-            this.lblPWM.TabIndex = 31;
-            this.lblPWM.Text = "# %";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(14, 182);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(34, 13);
-            this.label17.TabIndex = 32;
-            this.label17.Text = "PWM";
-            // 
             // ti1
             // 
             this.ti1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
@@ -952,14 +983,50 @@
             this.ti1.Visible = true;
             this.ti1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
-            // colorWheel
+            // lblPWM1
             // 
-            this.colorWheel.Location = new System.Drawing.Point(94, 61);
-            this.colorWheel.Name = "colorWheel";
-            this.colorWheel.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.colorWheel.Size = new System.Drawing.Size(243, 190);
-            this.colorWheel.TabIndex = 11;
-            this.colorWheel.Load += new System.EventHandler(this.colorWheel_Load);
+            this.lblPWM1.AutoSize = true;
+            this.lblPWM1.Location = new System.Drawing.Point(54, 247);
+            this.lblPWM1.Name = "lblPWM1";
+            this.lblPWM1.Size = new System.Drawing.Size(22, 13);
+            this.lblPWM1.TabIndex = 33;
+            this.lblPWM1.Text = "#%";
+            // 
+            // lblPWM2
+            // 
+            this.lblPWM2.AutoSize = true;
+            this.lblPWM2.Location = new System.Drawing.Point(115, 247);
+            this.lblPWM2.Name = "lblPWM2";
+            this.lblPWM2.Size = new System.Drawing.Size(22, 13);
+            this.lblPWM2.TabIndex = 34;
+            this.lblPWM2.Text = "#%";
+            // 
+            // lblPWM3
+            // 
+            this.lblPWM3.AutoSize = true;
+            this.lblPWM3.Location = new System.Drawing.Point(179, 247);
+            this.lblPWM3.Name = "lblPWM3";
+            this.lblPWM3.Size = new System.Drawing.Size(22, 13);
+            this.lblPWM3.TabIndex = 35;
+            this.lblPWM3.Text = "#%";
+            // 
+            // lblPWM4
+            // 
+            this.lblPWM4.AutoSize = true;
+            this.lblPWM4.Location = new System.Drawing.Point(240, 247);
+            this.lblPWM4.Name = "lblPWM4";
+            this.lblPWM4.Size = new System.Drawing.Size(22, 13);
+            this.lblPWM4.TabIndex = 36;
+            this.lblPWM4.Text = "#%";
+            // 
+            // lblPWM5
+            // 
+            this.lblPWM5.AutoSize = true;
+            this.lblPWM5.Location = new System.Drawing.Point(303, 247);
+            this.lblPWM5.Name = "lblPWM5";
+            this.lblPWM5.Size = new System.Drawing.Size(22, 13);
+            this.lblPWM5.TabIndex = 37;
+            this.lblPWM5.Text = "#%";
             // 
             // MainForm
             // 
@@ -1055,7 +1122,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkReconnectCom;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ProgressBar prgCore1;
         private System.Windows.Forms.Label lblCore4;
@@ -1094,5 +1161,11 @@
         private System.Windows.Forms.Label lblPWM;
         private System.Windows.Forms.ProgressBar prgPWM;
         private System.Windows.Forms.NotifyIcon ti1;
+        private System.Windows.Forms.CheckBox chkBootWithWindoos;
+        private System.Windows.Forms.Label lblPWM5;
+        private System.Windows.Forms.Label lblPWM4;
+        private System.Windows.Forms.Label lblPWM3;
+        private System.Windows.Forms.Label lblPWM2;
+        private System.Windows.Forms.Label lblPWM1;
     }
 }
