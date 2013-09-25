@@ -45,6 +45,7 @@ namespace ArduinoControlCenter.Controller
             dataPoints.Add(new LinearDataPoint(70, 70));
             dataPoints.Add(new LinearDataPoint(100, 100));
             _linearDataInterpolator = new LinearFunctionInterpolator(dataPoints);
+            _hardwareModel.dataPoints = dataPoints;
 
             _computer.CPUEnabled = true;
             //computer.FanControllerEnabled = true;
@@ -89,8 +90,6 @@ namespace ArduinoControlCenter.Controller
                 foreach (ISensor sensor in _sensors)
                 {
                     int sensorTemp = (int)sensor.Value;
-
-                    //Console.WriteLine("Temp: " + sensorTemp + "°C");
                     calculatedTemp += (int)sensorTemp;
                     if (sensorTemp > highestTemp)
                     {
@@ -100,15 +99,17 @@ namespace ArduinoControlCenter.Controller
                 calculatedTemp = calculatedTemp / _sensors.Count;
                 _hardwareModel.calculatedCPUTemperature = calculatedTemp;
                 _hardwareModel.highestCoreTemp = highestTemp;
-                _hardwareModel.calculatedSpeed = _linearDataInterpolator.extrapolateSpeedFromTemperature(highestTemp).speed;
-                _messageHub.Publish(new HardwareModelMessage(this,"update"));
 
-                /*Console.WriteLine("-----------------------------------------");
-                Console.WriteLine("Highest core temperature: " + highestTemp);
-                Console.WriteLine("Calculated temperature average: " + calculatedTemp);
-                Console.WriteLine("Calculated pwm speed: " + _hardwareModel.calculatedSpeed);
-                Console.WriteLine("-----------------------------------------");
-                Console.WriteLine("-----------------------------------------");*/
+                if (_hardwareModel.quietModeEnabled)
+                {
+                    _hardwareModel.calculatedSpeed = _hardwareModel.quietModeSpeed;
+                }
+                else
+                {
+                    _hardwareModel.calculatedSpeed = _linearDataInterpolator.extrapolateSpeedFromTemperature(highestTemp).speed;
+                }
+
+                _messageHub.Publish(new HardwareModelMessage(this,"update"));
                 Thread.Sleep(5000);
             }
         }

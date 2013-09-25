@@ -1,4 +1,5 @@
-﻿using OpenHardwareMonitor.Hardware;
+﻿using ArduinoControlCenter.Utils.HardwareMonitor;
+using OpenHardwareMonitor.Hardware;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,12 @@ namespace ArduinoControlCenter.Model
         private int _calculatedCPUTemperature;
         private int _highestCoreTemp;
 
+        private bool _quietModeEnabled;
+        private int _quietModeSpeed;
+
         private TinyMessengerHub _messageHub;
         private List<ISensor> _sensors;
+        private List<LinearDataPoint> _dataPoints;
 
         public HardwareModel(TinyMessengerHub messageHub)
         {
@@ -22,6 +27,8 @@ namespace ArduinoControlCenter.Model
 
             _calculatedCPUTemperature = -1;
             _calculatedSpeed = 100;
+            _quietModeEnabled = false;
+            _quietModeSpeed = 0;
         }
 
         #region --== Properties ==--
@@ -29,22 +36,13 @@ namespace ArduinoControlCenter.Model
 
         public List<ISensor> sensors 
         {
-            get
-            {
-                return _sensors;
-            }
-            set
-            {
-                _sensors = value;
-            }
+            get{return _sensors;}
+            set{_sensors = value;}
         }
 
         public int calculatedSpeed 
         {
-            get
-            {
-                return _calculatedSpeed;
-            }
+            get{return _calculatedSpeed;}
             set
             {
                 if (value < 0)
@@ -61,26 +59,32 @@ namespace ArduinoControlCenter.Model
 
         public int calculatedCPUTemperature 
         {
-            get
-            {
-                return _calculatedCPUTemperature;
-            }
-            set
-            {
-                _calculatedCPUTemperature = value;
-            }
+            get{return _calculatedCPUTemperature;}
+            set{_calculatedCPUTemperature = value;}
         }
 
         public int highestCoreTemp
         {
-            get
-            {
-                return _highestCoreTemp;
-            }
-            set
-            {
-                _highestCoreTemp = value;
-            }
+            get{return _highestCoreTemp;}
+            set{_highestCoreTemp = value;}
+        }
+
+        public List<LinearDataPoint> dataPoints
+        {
+            get{return _dataPoints;}
+            set{_dataPoints = value;}
+        }
+
+        public bool quietModeEnabled
+        {
+            get { return _quietModeEnabled; }
+            set { _quietModeEnabled = value; }
+        }
+
+        public int quietModeSpeed
+        {
+            get { return _quietModeSpeed; }
+            set { _quietModeSpeed = value; }
         }
 
         #endregion

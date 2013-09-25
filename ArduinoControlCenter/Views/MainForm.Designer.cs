@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.stbrConnection = new System.Windows.Forms.ToolStripStatusLabel();
@@ -37,6 +38,8 @@
             this.cmbComms = new System.Windows.Forms.ComboBox();
             this.btnCommAction = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.shapeContainer2 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.tabcon = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label12 = new System.Windows.Forms.Label();
@@ -71,9 +74,19 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ns5 = new System.Windows.Forms.NumericUpDown();
+            this.ns4 = new System.Windows.Forms.NumericUpDown();
+            this.ns3 = new System.Windows.Forms.NumericUpDown();
+            this.ns2 = new System.Windows.Forms.NumericUpDown();
+            this.ns1 = new System.Windows.Forms.NumericUpDown();
+            this.tb5 = new System.Windows.Forms.TrackBar();
+            this.tb4 = new System.Windows.Forms.TrackBar();
+            this.tb3 = new System.Windows.Forms.TrackBar();
+            this.tb2 = new System.Windows.Forms.TrackBar();
+            this.tb1 = new System.Windows.Forms.TrackBar();
             this.label19 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.chkQuietMode = new System.Windows.Forms.CheckBox();
+            this.nsQuietModeSpeed = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.lblCore4 = new System.Windows.Forms.Label();
             this.lblCore3 = new System.Windows.Forms.Label();
@@ -87,19 +100,16 @@
             this.prgCore3 = new System.Windows.Forms.ProgressBar();
             this.prgCore2 = new System.Windows.Forms.ProgressBar();
             this.prgCore1 = new System.Windows.Forms.ProgressBar();
-            this.colorWheel = new Components.ColorWheel.ColorChooser1();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.shapeContainer2 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.prgPWM = new System.Windows.Forms.ProgressBar();
             this.lblPWM = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.ti1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.colorWheel = new Components.ColorWheel.ColorChooser1();
             this.statusStrip1.SuspendLayout();
             this.gbmodel.SuspendLayout();
             this.tabcon.SuspendLayout();
@@ -110,14 +120,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbSmoothFade)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ns5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ns4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ns3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ns2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ns1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nsQuietModeSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stbrConnection});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 412);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 445);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(984, 22);
             this.statusStrip1.TabIndex = 0;
@@ -139,7 +159,7 @@
             this.gbmodel.Controls.Add(this.shapeContainer2);
             this.gbmodel.Location = new System.Drawing.Point(767, 12);
             this.gbmodel.Name = "gbmodel";
-            this.gbmodel.Size = new System.Drawing.Size(208, 385);
+            this.gbmodel.Size = new System.Drawing.Size(208, 421);
             this.gbmodel.TabIndex = 9;
             this.gbmodel.TabStop = false;
             this.gbmodel.Text = "Arduino Control";
@@ -193,6 +213,25 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Serial port communication options.\r\n\r\nBelow are some options you can set:\r\n";
             // 
+            // shapeContainer2
+            // 
+            this.shapeContainer2.Location = new System.Drawing.Point(3, 16);
+            this.shapeContainer2.Margin = new System.Windows.Forms.Padding(0);
+            this.shapeContainer2.Name = "shapeContainer2";
+            this.shapeContainer2.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.lineShape2});
+            this.shapeContainer2.Size = new System.Drawing.Size(202, 402);
+            this.shapeContainer2.TabIndex = 19;
+            this.shapeContainer2.TabStop = false;
+            // 
+            // lineShape2
+            // 
+            this.lineShape2.Name = "lineShape2";
+            this.lineShape2.X1 = 12;
+            this.lineShape2.X2 = 189;
+            this.lineShape2.Y1 = 196;
+            this.lineShape2.Y2 = 196;
+            // 
             // tabcon
             // 
             this.tabcon.Controls.Add(this.tabPage1);
@@ -202,7 +241,7 @@
             this.tabcon.Location = new System.Drawing.Point(13, 30);
             this.tabcon.Name = "tabcon";
             this.tabcon.SelectedIndex = 0;
-            this.tabcon.Size = new System.Drawing.Size(355, 345);
+            this.tabcon.Size = new System.Drawing.Size(355, 379);
             this.tabcon.TabIndex = 13;
             // 
             // tabPage1
@@ -217,7 +256,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(347, 319);
+            this.tabPage1.Size = new System.Drawing.Size(347, 353);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Manual mode";
             // 
@@ -233,7 +272,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(179, 287);
+            this.btnSave.Location = new System.Drawing.Point(179, 321);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 15;
@@ -243,7 +282,7 @@
             // 
             // btnManual
             // 
-            this.btnManual.Location = new System.Drawing.Point(263, 287);
+            this.btnManual.Location = new System.Drawing.Point(263, 321);
             this.btnManual.Name = "btnManual";
             this.btnManual.Size = new System.Drawing.Size(75, 23);
             this.btnManual.TabIndex = 13;
@@ -254,7 +293,7 @@
             // lblCurrentManual
             // 
             this.lblCurrentManual.AutoSize = true;
-            this.lblCurrentManual.Location = new System.Drawing.Point(6, 218);
+            this.lblCurrentManual.Location = new System.Drawing.Point(6, 252);
             this.lblCurrentManual.Name = "lblCurrentManual";
             this.lblCurrentManual.Size = new System.Drawing.Size(67, 13);
             this.lblCurrentManual.TabIndex = 14;
@@ -264,7 +303,7 @@
             // 
             this.pnlColorManual.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnlColorManual.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlColorManual.Location = new System.Drawing.Point(6, 237);
+            this.pnlColorManual.Location = new System.Drawing.Point(6, 271);
             this.pnlColorManual.Name = "pnlColorManual";
             this.pnlColorManual.Size = new System.Drawing.Size(73, 73);
             this.pnlColorManual.TabIndex = 12;
@@ -285,7 +324,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(347, 319);
+            this.tabPage2.Size = new System.Drawing.Size(347, 353);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Screen mode";
             // 
@@ -331,7 +370,7 @@
             // lblFPS
             // 
             this.lblFPS.AutoSize = true;
-            this.lblFPS.Location = new System.Drawing.Point(81, 236);
+            this.lblFPS.Location = new System.Drawing.Point(81, 270);
             this.lblFPS.Name = "lblFPS";
             this.lblFPS.Size = new System.Drawing.Size(36, 13);
             this.lblFPS.TabIndex = 18;
@@ -353,7 +392,7 @@
             // lblCurrentAuto
             // 
             this.lblCurrentAuto.AutoSize = true;
-            this.lblCurrentAuto.Location = new System.Drawing.Point(6, 218);
+            this.lblCurrentAuto.Location = new System.Drawing.Point(6, 252);
             this.lblCurrentAuto.Name = "lblCurrentAuto";
             this.lblCurrentAuto.Size = new System.Drawing.Size(67, 13);
             this.lblCurrentAuto.TabIndex = 16;
@@ -373,14 +412,14 @@
             // 
             this.pnlColorAuto.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnlColorAuto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlColorAuto.Location = new System.Drawing.Point(6, 237);
+            this.pnlColorAuto.Location = new System.Drawing.Point(6, 271);
             this.pnlColorAuto.Name = "pnlColorAuto";
             this.pnlColorAuto.Size = new System.Drawing.Size(73, 73);
             this.pnlColorAuto.TabIndex = 14;
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(263, 287);
+            this.btnStart.Location = new System.Drawing.Point(263, 321);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 13;
@@ -405,7 +444,7 @@
             this.tabPage3.Controls.Add(this.btnStartFade);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(347, 319);
+            this.tabPage3.Size = new System.Drawing.Size(347, 353);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Fade mode";
             // 
@@ -489,7 +528,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 218);
+            this.label7.Location = new System.Drawing.Point(6, 252);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 13);
             this.label7.TabIndex = 26;
@@ -509,14 +548,14 @@
             // 
             this.pnlColorFade.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnlColorFade.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlColorFade.Location = new System.Drawing.Point(6, 237);
+            this.pnlColorFade.Location = new System.Drawing.Point(6, 271);
             this.pnlColorFade.Name = "pnlColorFade";
             this.pnlColorFade.Size = new System.Drawing.Size(73, 73);
             this.pnlColorFade.TabIndex = 24;
             // 
             // btnStartFade
             // 
-            this.btnStartFade.Location = new System.Drawing.Point(263, 287);
+            this.btnStartFade.Location = new System.Drawing.Point(263, 321);
             this.btnStartFade.Name = "btnStartFade";
             this.btnStartFade.Size = new System.Drawing.Size(75, 23);
             this.btnStartFade.TabIndex = 23;
@@ -530,7 +569,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(347, 319);
+            this.tabPage4.Size = new System.Drawing.Size(347, 353);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Temperature mode";
             // 
@@ -539,24 +578,32 @@
             this.groupBox1.Controls.Add(this.tabcon);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(380, 385);
+            this.groupBox1.Size = new System.Drawing.Size(380, 421);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "RGB Controls";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.lblPWM);
             this.groupBox2.Controls.Add(this.prgPWM);
-            this.groupBox2.Controls.Add(this.button4);
-            this.groupBox2.Controls.Add(this.button5);
-            this.groupBox2.Controls.Add(this.button6);
-            this.groupBox2.Controls.Add(this.button3);
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.ns5);
+            this.groupBox2.Controls.Add(this.ns4);
+            this.groupBox2.Controls.Add(this.ns3);
+            this.groupBox2.Controls.Add(this.ns2);
+            this.groupBox2.Controls.Add(this.ns1);
+            this.groupBox2.Controls.Add(this.tb5);
+            this.groupBox2.Controls.Add(this.tb4);
+            this.groupBox2.Controls.Add(this.tb3);
+            this.groupBox2.Controls.Add(this.tb2);
+            this.groupBox2.Controls.Add(this.tb1);
             this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.numericUpDown1);
+            this.groupBox2.Controls.Add(this.chkQuietMode);
+            this.groupBox2.Controls.Add(this.nsQuietModeSpeed);
             this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.lblCore4);
             this.groupBox2.Controls.Add(this.lblCore3);
@@ -573,37 +620,142 @@
             this.groupBox2.Controls.Add(this.shapeContainer1);
             this.groupBox2.Location = new System.Drawing.Point(398, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(363, 385);
+            this.groupBox2.Size = new System.Drawing.Size(363, 421);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fan Control";
+            // 
+            // ns5
+            // 
+            this.ns5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ns5.Location = new System.Drawing.Point(294, 390);
+            this.ns5.Name = "ns5";
+            this.ns5.Size = new System.Drawing.Size(45, 20);
+            this.ns5.TabIndex = 26;
+            this.ns5.ValueChanged += new System.EventHandler(this.ns5_ValueChanged);
+            // 
+            // ns4
+            // 
+            this.ns4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ns4.Location = new System.Drawing.Point(231, 390);
+            this.ns4.Name = "ns4";
+            this.ns4.Size = new System.Drawing.Size(45, 20);
+            this.ns4.TabIndex = 25;
+            this.ns4.ValueChanged += new System.EventHandler(this.ns4_ValueChanged);
+            // 
+            // ns3
+            // 
+            this.ns3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ns3.Location = new System.Drawing.Point(170, 390);
+            this.ns3.Name = "ns3";
+            this.ns3.Size = new System.Drawing.Size(45, 20);
+            this.ns3.TabIndex = 24;
+            this.ns3.ValueChanged += new System.EventHandler(this.ns3_ValueChanged);
+            // 
+            // ns2
+            // 
+            this.ns2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ns2.Location = new System.Drawing.Point(106, 390);
+            this.ns2.Name = "ns2";
+            this.ns2.Size = new System.Drawing.Size(45, 20);
+            this.ns2.TabIndex = 23;
+            this.ns2.ValueChanged += new System.EventHandler(this.ns2_ValueChanged);
+            // 
+            // ns1
+            // 
+            this.ns1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ns1.Location = new System.Drawing.Point(45, 390);
+            this.ns1.Name = "ns1";
+            this.ns1.Size = new System.Drawing.Size(45, 20);
+            this.ns1.TabIndex = 22;
+            this.ns1.ValueChanged += new System.EventHandler(this.ns1_ValueChanged);
+            // 
+            // tb5
+            // 
+            this.tb5.Location = new System.Drawing.Point(298, 242);
+            this.tb5.Maximum = 100;
+            this.tb5.Name = "tb5";
+            this.tb5.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.tb5.Size = new System.Drawing.Size(45, 150);
+            this.tb5.TabIndex = 21;
+            this.tb5.TickFrequency = 5;
+            this.tb5.ValueChanged += new System.EventHandler(this.tb5_ValueChanged);
+            // 
+            // tb4
+            // 
+            this.tb4.Location = new System.Drawing.Point(235, 242);
+            this.tb4.Maximum = 100;
+            this.tb4.Name = "tb4";
+            this.tb4.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.tb4.Size = new System.Drawing.Size(45, 150);
+            this.tb4.TabIndex = 20;
+            this.tb4.TickFrequency = 5;
+            this.tb4.ValueChanged += new System.EventHandler(this.tb4_ValueChanged);
+            // 
+            // tb3
+            // 
+            this.tb3.Location = new System.Drawing.Point(174, 242);
+            this.tb3.Maximum = 100;
+            this.tb3.Name = "tb3";
+            this.tb3.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.tb3.Size = new System.Drawing.Size(45, 150);
+            this.tb3.TabIndex = 19;
+            this.tb3.TickFrequency = 5;
+            this.tb3.ValueChanged += new System.EventHandler(this.tb3_ValueChanged);
+            // 
+            // tb2
+            // 
+            this.tb2.Location = new System.Drawing.Point(110, 242);
+            this.tb2.Maximum = 100;
+            this.tb2.Name = "tb2";
+            this.tb2.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.tb2.Size = new System.Drawing.Size(45, 150);
+            this.tb2.TabIndex = 18;
+            this.tb2.TickFrequency = 5;
+            this.tb2.ValueChanged += new System.EventHandler(this.tb2_ValueChanged);
+            // 
+            // tb1
+            // 
+            this.tb1.LargeChange = 10;
+            this.tb1.Location = new System.Drawing.Point(49, 242);
+            this.tb1.Maximum = 100;
+            this.tb1.Name = "tb1";
+            this.tb1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.tb1.Size = new System.Drawing.Size(45, 150);
+            this.tb1.SmallChange = 5;
+            this.tb1.TabIndex = 17;
+            this.tb1.TickFrequency = 5;
+            this.tb1.ValueChanged += new System.EventHandler(this.tb1_ValueChanged);
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.BackColor = System.Drawing.Color.Transparent;
-            this.label19.Location = new System.Drawing.Point(169, 177);
+            this.label19.Location = new System.Drawing.Point(169, 221);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(87, 13);
             this.label19.TabIndex = 15;
             this.label19.Text = "quiet pwm speed";
             // 
-            // checkBox2
+            // chkQuietMode
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(17, 177);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(80, 17);
-            this.checkBox2.TabIndex = 14;
-            this.checkBox2.Text = "Quiet mode";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chkQuietMode.AutoSize = true;
+            this.chkQuietMode.Location = new System.Drawing.Point(17, 221);
+            this.chkQuietMode.Name = "chkQuietMode";
+            this.chkQuietMode.Size = new System.Drawing.Size(80, 17);
+            this.chkQuietMode.TabIndex = 14;
+            this.chkQuietMode.Text = "Quiet mode";
+            this.chkQuietMode.UseVisualStyleBackColor = true;
+            this.chkQuietMode.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
-            // numericUpDown1
+            // nsQuietModeSpeed
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(259, 174);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(56, 20);
-            this.numericUpDown1.TabIndex = 13;
+            this.nsQuietModeSpeed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nsQuietModeSpeed.Location = new System.Drawing.Point(259, 218);
+            this.nsQuietModeSpeed.Name = "nsQuietModeSpeed";
+            this.nsQuietModeSpeed.Size = new System.Drawing.Size(56, 20);
+            this.nsQuietModeSpeed.TabIndex = 13;
+            this.nsQuietModeSpeed.ValueChanged += new System.EventHandler(this.nsQuietModeSpeed_ValueChanged);
             // 
             // label18
             // 
@@ -696,7 +848,6 @@
             this.prgCore4.Name = "prgCore4";
             this.prgCore4.Size = new System.Drawing.Size(260, 23);
             this.prgCore4.TabIndex = 3;
-            this.prgCore4.Value = 40;
             // 
             // prgCore3
             // 
@@ -704,7 +855,6 @@
             this.prgCore3.Name = "prgCore3";
             this.prgCore3.Size = new System.Drawing.Size(260, 23);
             this.prgCore3.TabIndex = 2;
-            this.prgCore3.Value = 40;
             // 
             // prgCore2
             // 
@@ -712,7 +862,6 @@
             this.prgCore2.Name = "prgCore2";
             this.prgCore2.Size = new System.Drawing.Size(260, 23);
             this.prgCore2.TabIndex = 1;
-            this.prgCore2.Value = 40;
             // 
             // prgCore1
             // 
@@ -720,16 +869,6 @@
             this.prgCore1.Name = "prgCore1";
             this.prgCore1.Size = new System.Drawing.Size(260, 23);
             this.prgCore1.TabIndex = 0;
-            this.prgCore1.Value = 40;
-            // 
-            // colorWheel
-            // 
-            this.colorWheel.Location = new System.Drawing.Point(94, 61);
-            this.colorWheel.Name = "colorWheel";
-            this.colorWheel.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.colorWheel.Size = new System.Drawing.Size(243, 190);
-            this.colorWheel.TabIndex = 11;
-            this.colorWheel.Load += new System.EventHandler(this.colorWheel_Load);
             // 
             // shapeContainer1
             // 
@@ -738,7 +877,7 @@
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.lineShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(357, 366);
+            this.shapeContainer1.Size = new System.Drawing.Size(357, 402);
             this.shapeContainer1.TabIndex = 16;
             this.shapeContainer1.TabStop = false;
             // 
@@ -750,101 +889,83 @@
             this.lineShape1.Y1 = 196;
             this.lineShape1.Y2 = 196;
             // 
-            // lineShape2
+            // label14
             // 
-            this.lineShape2.Name = "lineShape2";
-            this.lineShape2.X1 = 12;
-            this.lineShape2.X2 = 189;
-            this.lineShape2.Y1 = 196;
-            this.lineShape2.Y2 = 196;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 304);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(45, 13);
+            this.label14.TabIndex = 27;
+            this.label14.Text = "% PWM";
             // 
-            // shapeContainer2
+            // label15
             // 
-            this.shapeContainer2.Location = new System.Drawing.Point(3, 16);
-            this.shapeContainer2.Margin = new System.Windows.Forms.Padding(0);
-            this.shapeContainer2.Name = "shapeContainer2";
-            this.shapeContainer2.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
-            this.lineShape2});
-            this.shapeContainer2.Size = new System.Drawing.Size(202, 366);
-            this.shapeContainer2.TabIndex = 19;
-            this.shapeContainer2.TabStop = false;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 393);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(34, 13);
+            this.label15.TabIndex = 28;
+            this.label15.Text = "Temp";
             // 
-            // button1
+            // label16
             // 
-            this.button1.Location = new System.Drawing.Point(14, 232);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(160, 23);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(14, 267);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(160, 23);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(14, 303);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(160, 23);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(188, 303);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(160, 23);
-            this.button4.TabIndex = 22;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(188, 267);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(160, 23);
-            this.button5.TabIndex = 21;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(188, 232);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(160, 23);
-            this.button6.TabIndex = 20;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(339, 394);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(18, 13);
+            this.label16.TabIndex = 29;
+            this.label16.Text = "°C";
             // 
             // prgPWM
             // 
-            this.prgPWM.Location = new System.Drawing.Point(14, 339);
+            this.prgPWM.Location = new System.Drawing.Point(55, 177);
             this.prgPWM.Name = "prgPWM";
-            this.prgPWM.Size = new System.Drawing.Size(264, 23);
-            this.prgPWM.TabIndex = 23;
+            this.prgPWM.Size = new System.Drawing.Size(260, 23);
+            this.prgPWM.TabIndex = 30;
             // 
             // lblPWM
             // 
-            this.lblPWM.Location = new System.Drawing.Point(284, 341);
+            this.lblPWM.AutoSize = true;
+            this.lblPWM.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblPWM.Location = new System.Drawing.Point(320, 183);
             this.lblPWM.Name = "lblPWM";
-            this.lblPWM.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblPWM.Size = new System.Drawing.Size(64, 19);
-            this.lblPWM.TabIndex = 24;
-            this.lblPWM.Text = "% PWM";
-            this.lblPWM.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPWM.Size = new System.Drawing.Size(25, 13);
+            this.lblPWM.TabIndex = 31;
+            this.lblPWM.Text = "# %";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(14, 182);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(34, 13);
+            this.label17.TabIndex = 32;
+            this.label17.Text = "PWM";
+            // 
+            // ti1
+            // 
+            this.ti1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.ti1.BalloonTipText = "Arduino Control Center application is still running, double click to show the app" +
+    "lication!";
+            this.ti1.Icon = ((System.Drawing.Icon)(resources.GetObject("ti1.Icon")));
+            this.ti1.Text = "Arduino Control Center";
+            this.ti1.Visible = true;
+            this.ti1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
+            // 
+            // colorWheel
+            // 
+            this.colorWheel.Location = new System.Drawing.Point(94, 61);
+            this.colorWheel.Name = "colorWheel";
+            this.colorWheel.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.colorWheel.Size = new System.Drawing.Size(243, 190);
+            this.colorWheel.TabIndex = 11;
+            this.colorWheel.Load += new System.EventHandler(this.colorWheel_Load);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 434);
+            this.ClientSize = new System.Drawing.Size(984, 467);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbmodel);
@@ -856,6 +977,7 @@
             this.Text = "Arduino Control Center";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.gbmodel.ResumeLayout(false);
@@ -872,7 +994,17 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ns5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ns4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ns3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ns2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ns1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nsQuietModeSpeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -938,20 +1070,29 @@
         private System.Windows.Forms.ProgressBar prgCore3;
         private System.Windows.Forms.ProgressBar prgCore2;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.CheckBox chkQuietMode;
+        private System.Windows.Forms.NumericUpDown nsQuietModeSpeed;
         private System.Windows.Forms.Label label18;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer2;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape2;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TrackBar tb5;
+        private System.Windows.Forms.TrackBar tb4;
+        private System.Windows.Forms.TrackBar tb3;
+        private System.Windows.Forms.TrackBar tb2;
+        private System.Windows.Forms.TrackBar tb1;
+        private System.Windows.Forms.NumericUpDown ns5;
+        private System.Windows.Forms.NumericUpDown ns4;
+        private System.Windows.Forms.NumericUpDown ns3;
+        private System.Windows.Forms.NumericUpDown ns2;
+        private System.Windows.Forms.NumericUpDown ns1;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label lblPWM;
         private System.Windows.Forms.ProgressBar prgPWM;
+        private System.Windows.Forms.NotifyIcon ti1;
     }
 }

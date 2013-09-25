@@ -112,8 +112,23 @@ namespace ArduinoControlCenter.Views
             prgCore3.Value = (int)hardwareModel.sensors[2].Value;
             prgCore4.Value = (int)hardwareModel.sensors[3].Value;
 
-            lblPWM.Text = hardwareModel.calculatedSpeed + " % PWM";
+            lblPWM.Text = hardwareModel.calculatedSpeed + "%";
             prgPWM.Value = hardwareModel.calculatedSpeed;
+
+            tb1.Value = hardwareModel.dataPoints[0].speed;
+            tb2.Value = hardwareModel.dataPoints[1].speed;
+            tb3.Value = hardwareModel.dataPoints[2].speed;
+            tb4.Value = hardwareModel.dataPoints[3].speed;
+            tb5.Value = hardwareModel.dataPoints[4].speed;
+
+            ns1.Value = hardwareModel.dataPoints[0].temperature;
+            ns2.Value = hardwareModel.dataPoints[1].temperature;
+            ns3.Value = hardwareModel.dataPoints[2].temperature;
+            ns4.Value = hardwareModel.dataPoints[3].temperature;
+            ns5.Value = hardwareModel.dataPoints[4].temperature;
+
+            chkQuietMode.Checked = hardwareModel.quietModeEnabled;
+            nsQuietModeSpeed.Value = hardwareModel.quietModeSpeed;
         }
 
         //When the FPS has changed!
@@ -144,6 +159,28 @@ namespace ArduinoControlCenter.Views
             {
                 btnCommAction.Text = "Connect";
             }
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                ti1.Visible = true;
+                ti1.ShowBalloonTip(500);
+                //this.Hide();
+                this.WindowState = FormWindowState.Minimized;
+            }
+            else if (FormWindowState.Normal == this.WindowState)
+            {
+                ti1.Visible = false;
+            }
+        }
+
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+            ti1.Visible = false;
         }
 
         //Properly close the connection when the form is closed!
@@ -301,6 +338,72 @@ namespace ArduinoControlCenter.Views
 
             e.Cancel = true;
             p.Hide();
+        }
+        #endregion
+
+        #region --== Temp mode ==--
+
+        #endregion
+
+        #region --== Fan control ==--
+        private void tb1_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.dataPoints[0].speed = tb1.Value;
+        }
+
+        private void tb2_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.dataPoints[1].speed = tb2.Value;
+        }
+
+        private void tb3_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.dataPoints[2].speed = tb3.Value;
+        }
+
+        private void tb4_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.dataPoints[3].speed = tb4.Value;
+        }
+
+        private void tb5_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.dataPoints[4].speed = tb5.Value;
+        }
+
+        private void ns1_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.dataPoints[0].temperature = (int)ns1.Value;
+        }
+
+        private void ns2_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.dataPoints[1].temperature = (int)ns2.Value;
+        }
+
+        private void ns3_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.dataPoints[2].temperature = (int)ns3.Value;
+        }
+
+        private void ns4_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.dataPoints[3].temperature = (int)ns4.Value;
+        }
+
+        private void ns5_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.dataPoints[4].temperature = (int)ns5.Value;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            hardwareModel.quietModeEnabled = chkQuietMode.Checked;
+        }
+
+        private void nsQuietModeSpeed_ValueChanged(object sender, EventArgs e)
+        {
+            hardwareModel.quietModeSpeed = (int)nsQuietModeSpeed.Value;
         }
         #endregion
 

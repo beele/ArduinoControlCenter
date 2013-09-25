@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ArduinoControlCenter.Utils.HardwareMonitor
 {
-    class LinearDataPoint
+    public class LinearDataPoint
     {
         public int temperature;
         public int speed;
