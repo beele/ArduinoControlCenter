@@ -65,7 +65,7 @@ namespace ArduinoControlCenter.Utils.HardwareMonitor
                 point.speed = higherPoint.speed;
                 return point;
             }
-            else
+            else if(higherPoint == null && lowerPoint == null)
             {
                 higherPoint = dataPoints[0];
                 lowerPoint = dataPoints[1];
