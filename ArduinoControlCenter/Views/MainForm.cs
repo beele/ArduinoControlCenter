@@ -192,7 +192,7 @@ namespace ArduinoControlCenter.Views
         //Properly close the connection when the form is closed!
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            controller.dispose();
+            appController.dispose();
         }
 
         #region --== Manual mode ==--

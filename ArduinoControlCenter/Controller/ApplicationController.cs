@@ -1,5 +1,6 @@
 ﻿using ArduinoControlCenter.Model;
 using ArduinoControlCenter.Utils.SerialComm;
+using ArduinoControlCenter.Utils.Settings;
 using ArduinoControlCenter.Views;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace ArduinoControlCenter.Controller
 
         private ColorController _colorController;
         private HardwareController _temperatureController;
+        private SettingsModel _settingsModel;
 
         private ColorModel _colorModel;
         private HardwareModel _hardwareModel;
@@ -26,8 +28,13 @@ namespace ArduinoControlCenter.Controller
         {
             _messageHub = new TinyMessengerHub();
 
+            _settingsModel = SettingsUtils.readSettingsModelSettings();
+            _settingsModel.messageHub = _messageHub;
+
+            _hardwareModel = SettingsUtils.readHardwareModelSettings();
+            _hardwareModel.messageHub = _messageHub;
+
             _colorModel = new ColorModel(_messageHub);
-            _hardwareModel = new HardwareModel(_messageHub);
 
             _colorController = new ColorController(_colorModel, _messageHub, gui);
             _temperatureController = new HardwareController(_hardwareModel, _messageHub, gui);
@@ -52,6 +59,8 @@ namespace ArduinoControlCenter.Controller
 
         public void dispose()
         {
+            SettingsUtils.saveSettings(_hardwareModel, _settingsModel);
+
             _comm.stop();
             _colorController.dispose();
         }

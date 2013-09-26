@@ -2,13 +2,14 @@
 using OpenHardwareMonitor.Hardware;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using TinyMessenger;
 
 namespace ArduinoControlCenter.Model
 {
-    public class HardwareModel
+    public class HardwareModel : ApplicationSettingsBase
     {
         private int _calculatedSpeed;
         private int _calculatedCPUTemperature;
@@ -33,13 +34,6 @@ namespace ArduinoControlCenter.Model
 
         #region --== Properties ==--
         //PROPERTIES
-
-        public List<ISensor> sensors 
-        {
-            get{return _sensors;}
-            set{_sensors = value;}
-        }
-
         public int calculatedSpeed 
         {
             get{return _calculatedSpeed;}
@@ -72,7 +66,7 @@ namespace ArduinoControlCenter.Model
         public List<LinearDataPoint> dataPoints
         {
             get{return _dataPoints;}
-            set{_dataPoints = value;}
+            set { _dataPoints = value;}
         }
 
         public bool quietModeEnabled
@@ -85,6 +79,18 @@ namespace ArduinoControlCenter.Model
         {
             get { return _quietModeSpeed; }
             set { _quietModeSpeed = value; }
+        }
+
+        public TinyMessengerHub messageHub
+        {
+            get { return _messageHub; }
+            set { _messageHub = value; }
+        }
+
+        public List<ISensor> sensors
+        {
+            get { return _sensors; }
+            set { _sensors = value; }
         }
 
         #endregion

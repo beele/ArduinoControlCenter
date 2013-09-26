@@ -38,14 +38,18 @@ namespace ArduinoControlCenter.Controller
 
             _isRunning = false;
 
-            List<LinearDataPoint> dataPoints = new List<LinearDataPoint>();
-            dataPoints.Add(new LinearDataPoint(0, 0));
-            dataPoints.Add(new LinearDataPoint(40, 0));
-            dataPoints.Add(new LinearDataPoint(50, 35));
-            dataPoints.Add(new LinearDataPoint(70, 70));
-            dataPoints.Add(new LinearDataPoint(100, 100));
-            _linearDataInterpolator = new LinearFunctionInterpolator(dataPoints);
-            _hardwareModel.dataPoints = dataPoints;
+            if (_hardwareModel.dataPoints == null)
+            {
+                List<LinearDataPoint> dataPoints = new List<LinearDataPoint>();
+                dataPoints.Add(new LinearDataPoint(0, 0));
+                dataPoints.Add(new LinearDataPoint(40, 0));
+                dataPoints.Add(new LinearDataPoint(50, 35));
+                dataPoints.Add(new LinearDataPoint(70, 70));
+                dataPoints.Add(new LinearDataPoint(100, 100));
+                _hardwareModel.dataPoints = dataPoints;
+            }
+            _linearDataInterpolator = new LinearFunctionInterpolator(_hardwareModel.dataPoints);
+            
 
             _computer.CPUEnabled = true;
             //computer.FanControllerEnabled = true;

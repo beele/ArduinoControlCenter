@@ -113,6 +113,7 @@
     <Compile Include="Utils\Messenger\HardwareModelMessage.cs" />
     <Compile Include="Utils\Messenger\MessageEnums.cs" />
     <Compile Include="Utils\Messenger\TinyMessenger.cs" />
+    <Compile Include="Utils\Settings\SettingsUtils.cs" />
     <Compile Include="Views\ColorPickerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +161,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="ArduinoControlCenter_TemporaryKey.pfx" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">

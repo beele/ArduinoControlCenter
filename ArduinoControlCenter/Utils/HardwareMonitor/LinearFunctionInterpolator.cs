@@ -58,11 +58,17 @@ namespace ArduinoControlCenter.Utils.HardwareMonitor
             }
 
             //detect if the speed is exactly at one of the given datapoints
-            if (higherPoint.temperature == lowerPoint.temperature)
+            if (higherPoint != null && lowerPoint != null &&
+                higherPoint.temperature == lowerPoint.temperature)
             {
                 point.temperature = higherPoint.temperature;
                 point.speed = higherPoint.speed;
                 return point;
+            }
+            else
+            {
+                higherPoint = dataPoints[0];
+                lowerPoint = dataPoints[1];
             }
 
             float mA = higherPoint.speed - lowerPoint.speed;
