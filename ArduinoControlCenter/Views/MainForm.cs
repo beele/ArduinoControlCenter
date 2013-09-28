@@ -174,6 +174,7 @@ namespace ArduinoControlCenter.Views
                 ti1.Visible = true;
                 ti1.ShowBalloonTip(500);
                 //this.Hide();
+                this.ShowInTaskbar = false;
                 this.WindowState = FormWindowState.Minimized;
             }
             else if (FormWindowState.Normal == this.WindowState)
@@ -193,6 +194,7 @@ namespace ArduinoControlCenter.Views
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             appController.dispose();
+            ti1.Dispose();
         }
 
         #region --== Manual mode ==--
