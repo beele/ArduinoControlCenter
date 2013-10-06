@@ -11,6 +11,7 @@ namespace ArduinoControlCenter.Utils.SerialComm
         private static Thread thread;
         private ColorModel _colorModel;
         private HardwareModel _hardwareModel;
+        private SettingsModel _settingsModel;
 
         public bool isOpen;
         public Color prevColor;
@@ -19,10 +20,11 @@ namespace ArduinoControlCenter.Utils.SerialComm
         private String commPort;
         private SerialPort port;
 
-        public Communicator(ColorModel colorModel, HardwareModel hardwareModel)
+        public Communicator(ColorModel colorModel, HardwareModel hardwareModel, SettingsModel settingsModel)
         {
             this._colorModel = colorModel;
             this._hardwareModel = hardwareModel;
+            this._settingsModel = settingsModel;
         }
 
         public void start(String commPort)
@@ -103,7 +105,7 @@ namespace ArduinoControlCenter.Utils.SerialComm
                     if (c != prevColor || speed != prevSpeed)
                     {
                         int writeByte = _colorModel.saveNextColorToEeprom == true ? 0xee : 0xff;
-                        Console.WriteLine("Sending data: R=" + c.R + "G=" + c.G + "B=" + c.B);
+                        Console.WriteLine("Sending data: R=" + c.R + "G=" + c.G + "B=" + c.B + " Fanspeed=" + speed);
                         port.Write(new byte[] { Convert.ToByte(writeByte) }, 0, 1);
                         port.Write(new byte[] { Convert.ToByte(c.R) }, 0, 1);
                         port.Write(new byte[] { Convert.ToByte(c.G) }, 0, 1);
@@ -125,7 +127,10 @@ namespace ArduinoControlCenter.Utils.SerialComm
                 isOpen = false;
                 closeCommChannel();
                 sendStatusMessage("ERROR: Connection problems, try restarting the app!");
-                //TODO: maybe auto attempt to restart the comm channel!
+                if (_settingsModel.autoReconnect == true)
+                {
+                    start(commPort);
+                }
             }
         }
 

@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TinyMessenger;
 
 namespace ArduinoControlCenter.Utils.Settings
 {
     public class SettingsUtils
     {
-        public static void saveSettings(HardwareModel hardwareModel, SettingsModel settingsModel) {
+        public static void saveSettings(HardwareModel hardwareModel, SettingsModel settingsModel, ColorModel colorModel) {
             //hardware model settings
             Properties.Settings.Default.dp1Speed = hardwareModel.dataPoints[0].speed;
             Properties.Settings.Default.dp1Temp = hardwareModel.dataPoints[0].temperature;
@@ -29,6 +30,10 @@ namespace ArduinoControlCenter.Utils.Settings
             Properties.Settings.Default.quietModeOn = hardwareModel.quietModeEnabled;
             Properties.Settings.Default.quitModeSpeed = hardwareModel.quietModeSpeed;
 
+            //color model settings
+            //TODO: default mode
+            Properties.Settings.Default.staticStartColor = colorModel.color;
+
             //settings model settings
             Properties.Settings.Default.autoStartOn = settingsModel.startOnBoot;
             Properties.Settings.Default.autoReconnect = settingsModel.autoReconnect;
@@ -36,9 +41,9 @@ namespace ArduinoControlCenter.Utils.Settings
             Properties.Settings.Default.Save();
         }
 
-        public static HardwareModel readHardwareModelSettings()
+        public static HardwareModel readHardwareModelSettings(TinyMessengerHub messageHub)
         {
-            HardwareModel hwModel = new HardwareModel(null);
+            HardwareModel hwModel = new HardwareModel(messageHub);
             LinearDataPoint ldp1 = new LinearDataPoint(Properties.Settings.Default.dp1Temp, Properties.Settings.Default.dp1Speed);
             LinearDataPoint ldp2 = new LinearDataPoint(Properties.Settings.Default.dp2Temp, Properties.Settings.Default.dp2Speed);
             LinearDataPoint ldp3 = new LinearDataPoint(Properties.Settings.Default.dp3Temp, Properties.Settings.Default.dp3Speed);
@@ -58,9 +63,17 @@ namespace ArduinoControlCenter.Utils.Settings
             return hwModel;
         }
 
-        public static SettingsModel readSettingsModelSettings()
+        public static ColorModel readColorModelSettings(TinyMessengerHub messageHub)
         {
-            SettingsModel setModel = new SettingsModel(null);
+            ColorModel colModel = new ColorModel(messageHub);
+            colModel.color = Properties.Settings.Default.staticStartColor;
+
+            return colModel;
+        }
+
+        public static SettingsModel readSettingsModelSettings(TinyMessengerHub messageHub)
+        {
+            SettingsModel setModel = new SettingsModel(messageHub);
 
             setModel.startOnBoot = Properties.Settings.Default.autoStartOn;
             setModel.autoReconnect = Properties.Settings.Default.autoReconnect;

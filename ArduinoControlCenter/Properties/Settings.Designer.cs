@@ -190,5 +190,16 @@ namespace ArduinoControlCenter.Properties {
                 this["autoReconnect"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color staticStartColor {
+            get {
+                return ((global::System.Drawing.Color)(this["staticStartColor"]));
+            }
+            set {
+                this["staticStartColor"] = value;
+            }
+        }
     }
 }

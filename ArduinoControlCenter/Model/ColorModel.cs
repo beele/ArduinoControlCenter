@@ -22,11 +22,11 @@ namespace ArduinoControlCenter.Model
         private String _status;
         private bool _saveNextColorToEeprom;
 
-        private TinyMessengerHub messageHub;
+        private TinyMessengerHub _messageHub;
 
         public ColorModel(TinyMessengerHub messageHub)
         {
-            this.messageHub = messageHub;
+            this._messageHub = messageHub;
 
             duration = 1;
             _color = Color.White;
@@ -35,6 +35,8 @@ namespace ArduinoControlCenter.Model
 
         #region --== Properties ==--
         //PROPERTIES
+
+        public TinyMessengerHub messageHub { get { return _messageHub; } set { _messageHub = value; } }
 
         public Color color 
         {
@@ -45,7 +47,7 @@ namespace ArduinoControlCenter.Model
             set
             {
                 _color = value;
-                messageHub.Publish(new ColorModelMessage(this,COLOR_FIELDS.COLOR));
+                _messageHub.Publish(new ColorModelMessage(this,COLOR_FIELDS.COLOR));
             }
         }
 
@@ -58,7 +60,7 @@ namespace ArduinoControlCenter.Model
             set
             {
                 _FPS = value;
-                messageHub.Publish(new ColorModelMessage(this, COLOR_FIELDS.FPS));
+                _messageHub.Publish(new ColorModelMessage(this, COLOR_FIELDS.FPS));
             }
         }
 
@@ -71,7 +73,7 @@ namespace ArduinoControlCenter.Model
             set
             {
                 _status = value;
-                messageHub.Publish(new ColorModelMessage(this, COLOR_FIELDS.STATUS));
+                _messageHub.Publish(new ColorModelMessage(this, COLOR_FIELDS.STATUS));
             }
         }
 

@@ -114,7 +114,7 @@ namespace ArduinoControlCenter.Controller
                 }
 
                 _messageHub.Publish(new HardwareModelMessage(this,"update"));
-                Thread.Sleep(5000);
+                Thread.Sleep(1000);
             }
         }
     }

@@ -13,4 +13,12 @@ namespace ArduinoControlCenter.Utils.Messenger
             this.Content = content;
         }
     }
+
+    class ColorControllerMessage : GenericTinyMessage<String>
+    {
+        public ColorControllerMessage(object sender, String content): base(sender, content)
+        {
+            this.Content = content;
+        }
+    }
 }

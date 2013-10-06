@@ -33,7 +33,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.stbrConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.gbmodel = new System.Windows.Forms.GroupBox();
-            this.chkBootWithWindoos = new System.Windows.Forms.CheckBox();
             this.chkReconnectCom = new System.Windows.Forms.CheckBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.cmbComms = new System.Windows.Forms.ComboBox();
@@ -47,7 +46,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.lblCurrentManual = new System.Windows.Forms.Label();
-            this.colorWheel = new Components.ColorWheel.ColorChooser1();
             this.pnlColorManual = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lblMax = new System.Windows.Forms.Label();
@@ -76,6 +74,11 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblPWM5 = new System.Windows.Forms.Label();
+            this.lblPWM4 = new System.Windows.Forms.Label();
+            this.lblPWM3 = new System.Windows.Forms.Label();
+            this.lblPWM2 = new System.Windows.Forms.Label();
+            this.lblPWM1 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.lblPWM = new System.Windows.Forms.Label();
             this.prgPWM = new System.Windows.Forms.ProgressBar();
@@ -111,11 +114,8 @@
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.ti1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.lblPWM1 = new System.Windows.Forms.Label();
-            this.lblPWM2 = new System.Windows.Forms.Label();
-            this.lblPWM3 = new System.Windows.Forms.Label();
-            this.lblPWM4 = new System.Windows.Forms.Label();
-            this.lblPWM5 = new System.Windows.Forms.Label();
+            this.colorWheel = new Components.ColorWheel.ColorChooser1();
+            this.cms1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.statusStrip1.SuspendLayout();
             this.gbmodel.SuspendLayout();
             this.tabcon.SuspendLayout();
@@ -157,7 +157,6 @@
             // 
             // gbmodel
             // 
-            this.gbmodel.Controls.Add(this.chkBootWithWindoos);
             this.gbmodel.Controls.Add(this.chkReconnectCom);
             this.gbmodel.Controls.Add(this.btnRefresh);
             this.gbmodel.Controls.Add(this.cmbComms);
@@ -171,16 +170,6 @@
             this.gbmodel.TabStop = false;
             this.gbmodel.Text = "Arduino Control";
             // 
-            // chkBootWithWindoos
-            // 
-            this.chkBootWithWindoos.AutoSize = true;
-            this.chkBootWithWindoos.Location = new System.Drawing.Point(15, 221);
-            this.chkBootWithWindoos.Name = "chkBootWithWindoos";
-            this.chkBootWithWindoos.Size = new System.Drawing.Size(98, 17);
-            this.chkBootWithWindoos.TabIndex = 20;
-            this.chkBootWithWindoos.Text = "Boot on startup";
-            this.chkBootWithWindoos.UseVisualStyleBackColor = true;
-            // 
             // chkReconnectCom
             // 
             this.chkReconnectCom.AutoSize = true;
@@ -190,6 +179,7 @@
             this.chkReconnectCom.TabIndex = 18;
             this.chkReconnectCom.Text = "Auto-reconnect";
             this.chkReconnectCom.UseVisualStyleBackColor = true;
+            this.chkReconnectCom.CheckedChanged += new System.EventHandler(this.chkReconnectCom_CheckedChanged);
             // 
             // btnRefresh
             // 
@@ -315,15 +305,6 @@
             this.lblCurrentManual.Size = new System.Drawing.Size(67, 13);
             this.lblCurrentManual.TabIndex = 14;
             this.lblCurrentManual.Text = "Current color";
-            // 
-            // colorWheel
-            // 
-            this.colorWheel.Location = new System.Drawing.Point(94, 61);
-            this.colorWheel.Name = "colorWheel";
-            this.colorWheel.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.colorWheel.Size = new System.Drawing.Size(243, 190);
-            this.colorWheel.TabIndex = 11;
-            this.colorWheel.Load += new System.EventHandler(this.colorWheel_Load);
             // 
             // pnlColorManual
             // 
@@ -656,6 +637,51 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fan Control";
             // 
+            // lblPWM5
+            // 
+            this.lblPWM5.AutoSize = true;
+            this.lblPWM5.Location = new System.Drawing.Point(303, 247);
+            this.lblPWM5.Name = "lblPWM5";
+            this.lblPWM5.Size = new System.Drawing.Size(22, 13);
+            this.lblPWM5.TabIndex = 37;
+            this.lblPWM5.Text = "#%";
+            // 
+            // lblPWM4
+            // 
+            this.lblPWM4.AutoSize = true;
+            this.lblPWM4.Location = new System.Drawing.Point(240, 247);
+            this.lblPWM4.Name = "lblPWM4";
+            this.lblPWM4.Size = new System.Drawing.Size(22, 13);
+            this.lblPWM4.TabIndex = 36;
+            this.lblPWM4.Text = "#%";
+            // 
+            // lblPWM3
+            // 
+            this.lblPWM3.AutoSize = true;
+            this.lblPWM3.Location = new System.Drawing.Point(179, 247);
+            this.lblPWM3.Name = "lblPWM3";
+            this.lblPWM3.Size = new System.Drawing.Size(22, 13);
+            this.lblPWM3.TabIndex = 35;
+            this.lblPWM3.Text = "#%";
+            // 
+            // lblPWM2
+            // 
+            this.lblPWM2.AutoSize = true;
+            this.lblPWM2.Location = new System.Drawing.Point(115, 247);
+            this.lblPWM2.Name = "lblPWM2";
+            this.lblPWM2.Size = new System.Drawing.Size(22, 13);
+            this.lblPWM2.TabIndex = 34;
+            this.lblPWM2.Text = "#%";
+            // 
+            // lblPWM1
+            // 
+            this.lblPWM1.AutoSize = true;
+            this.lblPWM1.Location = new System.Drawing.Point(54, 247);
+            this.lblPWM1.Name = "lblPWM1";
+            this.lblPWM1.Size = new System.Drawing.Size(22, 13);
+            this.lblPWM1.TabIndex = 33;
+            this.lblPWM1.Text = "#%";
+            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -978,55 +1004,26 @@
             this.ti1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.ti1.BalloonTipText = "Arduino Control Center application is still running, double click to show the app" +
     "lication!";
+            this.ti1.BalloonTipTitle = "Arduino Control Center";
+            this.ti1.ContextMenuStrip = this.cms1;
             this.ti1.Icon = ((System.Drawing.Icon)(resources.GetObject("ti1.Icon")));
             this.ti1.Text = "Arduino Control Center";
             this.ti1.Visible = true;
             this.ti1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
-            // lblPWM1
+            // colorWheel
             // 
-            this.lblPWM1.AutoSize = true;
-            this.lblPWM1.Location = new System.Drawing.Point(54, 247);
-            this.lblPWM1.Name = "lblPWM1";
-            this.lblPWM1.Size = new System.Drawing.Size(22, 13);
-            this.lblPWM1.TabIndex = 33;
-            this.lblPWM1.Text = "#%";
+            this.colorWheel.Location = new System.Drawing.Point(94, 61);
+            this.colorWheel.Name = "colorWheel";
+            this.colorWheel.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.colorWheel.Size = new System.Drawing.Size(243, 190);
+            this.colorWheel.TabIndex = 11;
+            this.colorWheel.Load += new System.EventHandler(this.colorWheel_Load);
             // 
-            // lblPWM2
+            // cms1
             // 
-            this.lblPWM2.AutoSize = true;
-            this.lblPWM2.Location = new System.Drawing.Point(115, 247);
-            this.lblPWM2.Name = "lblPWM2";
-            this.lblPWM2.Size = new System.Drawing.Size(22, 13);
-            this.lblPWM2.TabIndex = 34;
-            this.lblPWM2.Text = "#%";
-            // 
-            // lblPWM3
-            // 
-            this.lblPWM3.AutoSize = true;
-            this.lblPWM3.Location = new System.Drawing.Point(179, 247);
-            this.lblPWM3.Name = "lblPWM3";
-            this.lblPWM3.Size = new System.Drawing.Size(22, 13);
-            this.lblPWM3.TabIndex = 35;
-            this.lblPWM3.Text = "#%";
-            // 
-            // lblPWM4
-            // 
-            this.lblPWM4.AutoSize = true;
-            this.lblPWM4.Location = new System.Drawing.Point(240, 247);
-            this.lblPWM4.Name = "lblPWM4";
-            this.lblPWM4.Size = new System.Drawing.Size(22, 13);
-            this.lblPWM4.TabIndex = 36;
-            this.lblPWM4.Text = "#%";
-            // 
-            // lblPWM5
-            // 
-            this.lblPWM5.AutoSize = true;
-            this.lblPWM5.Location = new System.Drawing.Point(303, 247);
-            this.lblPWM5.Name = "lblPWM5";
-            this.lblPWM5.Size = new System.Drawing.Size(22, 13);
-            this.lblPWM5.TabIndex = 37;
-            this.lblPWM5.Text = "#%";
+            this.cms1.Name = "cms1";
+            this.cms1.Size = new System.Drawing.Size(153, 26);
             // 
             // MainForm
             // 
@@ -1161,11 +1158,11 @@
         private System.Windows.Forms.Label lblPWM;
         private System.Windows.Forms.ProgressBar prgPWM;
         private System.Windows.Forms.NotifyIcon ti1;
-        private System.Windows.Forms.CheckBox chkBootWithWindoos;
         private System.Windows.Forms.Label lblPWM5;
         private System.Windows.Forms.Label lblPWM4;
         private System.Windows.Forms.Label lblPWM3;
         private System.Windows.Forms.Label lblPWM2;
         private System.Windows.Forms.Label lblPWM1;
+        private System.Windows.Forms.ContextMenuStrip cms1;
     }
 }

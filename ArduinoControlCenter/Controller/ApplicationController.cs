@@ -1,4 +1,5 @@
 ﻿using ArduinoControlCenter.Model;
+using ArduinoControlCenter.Utils.Messenger;
 using ArduinoControlCenter.Utils.SerialComm;
 using ArduinoControlCenter.Utils.Settings;
 using ArduinoControlCenter.Views;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using TinyMessenger;
 
 namespace ArduinoControlCenter.Controller
@@ -28,42 +30,85 @@ namespace ArduinoControlCenter.Controller
         {
             _messageHub = new TinyMessengerHub();
 
-            _settingsModel = SettingsUtils.readSettingsModelSettings();
-            _settingsModel.messageHub = _messageHub;
-
-            _hardwareModel = SettingsUtils.readHardwareModelSettings();
-            _hardwareModel.messageHub = _messageHub;
-
-            _colorModel = new ColorModel(_messageHub);
+            _settingsModel = SettingsUtils.readSettingsModelSettings(_messageHub);
+            _hardwareModel = SettingsUtils.readHardwareModelSettings(_messageHub);
+            _colorModel = SettingsUtils.readColorModelSettings(_messageHub);
 
             _colorController = new ColorController(_colorModel, _messageHub, gui);
             _temperatureController = new HardwareController(_hardwareModel, _messageHub, gui);
 
-            _comm = new Communicator(_colorModel, _hardwareModel);
+            _comm = new Communicator(_colorModel, _hardwareModel, _settingsModel);
 
             _gui = gui;
             _gui.appController = this;
-            _gui.controller = _colorController;
+            _gui.colorController = _colorController;
+            _gui.settingsModel = _settingsModel;
             _gui.init(_colorModel, _hardwareModel, _messageHub);
+
+            checkAutoStartStatus();
+        }
+
+        public void onGuiFormLoaded()
+        {
+            _colorController.autoStartMode();
+            openComm();
         }
 
         public void openComm()
         {
             _comm.start(_gui.cmbComms.SelectedItem + "");
+            _gui.setComLabels();
         }
 
         public void closeComm()
         {
             _comm.stop();
+            _gui.setComLabels();
+        }
+
+        public void setAutoStartup(bool autoStart)
+        {
+            _settingsModel.startOnBoot = autoStart;
+            checkAutoStartStatus();
+        }
+
+        private void checkAutoStartStatus()
+        {
+            String appName = "be.beeles-place.ArduinoControlCenter";
+            String runKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+            Microsoft.Win32.RegistryKey startupKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(runKey);
+
+            if (_settingsModel.startOnBoot == true)
+            {
+                if (startupKey.GetValue(appName) == null)
+                {
+                    startupKey.Close();
+                    startupKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(runKey, true);
+                    startupKey.SetValue(appName, Application.ExecutablePath.ToString());
+                    startupKey.Close();
+                }
+            }
+            else
+            {
+                startupKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(runKey, true);
+                startupKey.DeleteValue(appName, false);
+                startupKey.Close();
+            }
+            _messageHub.Publish(new SettingsModelMessage(this, "update"));
+        }
+
+        public void setAutoReconnect(bool autoConnect)
+        {
+            _settingsModel.autoReconnect = autoConnect;
+            _messageHub.Publish(new SettingsModelMessage(this, "update"));
         }
 
         public void dispose()
         {
-            SettingsUtils.saveSettings(_hardwareModel, _settingsModel);
+            SettingsUtils.saveSettings(_hardwareModel, _settingsModel, _colorModel);
 
             _comm.stop();
             _colorController.dispose();
         }
-
     }
 }

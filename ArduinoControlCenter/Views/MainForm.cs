@@ -12,11 +12,12 @@ namespace ArduinoControlCenter.Views
     public partial class MainForm : Form
     {
         public ApplicationController appController;
-        public ColorController controller;
+        public ColorController colorController;
 
         public TinyMessengerHub messageHub;
         public ColorModel colorModel;
         public HardwareModel hardwareModel;
+        public SettingsModel settingsModel;
 
         public ColorPickerDialog startPicker;
         public ColorPickerDialog stopPicker;
@@ -61,6 +62,8 @@ namespace ArduinoControlCenter.Views
 
             tbSmoothFade.Minimum = 1;
             tbSmoothFade.Maximum = 30;
+
+            appController.onGuiFormLoaded();
         }
 
         //Init of colorwheel is done when it is loaded!
@@ -81,7 +84,9 @@ namespace ArduinoControlCenter.Views
             this.messageHub = messageHub;
 
             messageHub.Subscribe<ColorModelMessage>((m) => colorModelUpdated(m.Content));
+            messageHub.Subscribe<ColorControllerMessage>((m) => { this.Invoke(new MethodInvoker(colorControllerModeChangeMade)); });
             messageHub.Subscribe<HardwareModelMessage>((m) => { this.Invoke(new MethodInvoker(hardwareModelUpdated)); });
+            messageHub.Subscribe<SettingsModelMessage>((m) => { this.Invoke(new MethodInvoker(settingsModelUpdated)); });
         }
 
         private void colorModelUpdated(COLOR_FIELDS val)
@@ -98,6 +103,12 @@ namespace ArduinoControlCenter.Views
                     this.Invoke(new MethodInvoker(updateStatus));
                     break;
             }
+        }
+
+        private void colorControllerModeChangeMade()
+        {
+            colorWheel.SelectedColor = colorModel.color;
+            colorWheel_ColorChanged(null, null);
         }
 
         private void hardwareModelUpdated()
@@ -137,6 +148,11 @@ namespace ArduinoControlCenter.Views
             nsQuietModeSpeed.Value = hardwareModel.quietModeSpeed;
         }
 
+        private void settingsModelUpdated()
+        {
+            chkReconnectCom.Checked = settingsModel.autoReconnect;
+        }
+
         //When the FPS has changed!
         public void fpsChanged()
         {
@@ -146,7 +162,7 @@ namespace ArduinoControlCenter.Views
         //When the color has changed!
         public void colorChanged()
         {   
-            switch (controller.mode)
+            switch (colorController.mode)
 	        {
                 case ColorModel.COLORMODES.screen:
                     pnlColorAuto.BackColor = colorModel.color;
@@ -211,7 +227,7 @@ namespace ArduinoControlCenter.Views
         private void btnManual_Click_1(object sender, EventArgs e)
         {
             disableOtherMode();
-            controller.setSelectedColor(colorWheel.SelectedColor,false);
+            colorController.setSelectedColor(colorWheel.SelectedColor,false);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -222,19 +238,19 @@ namespace ArduinoControlCenter.Views
                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.No)
             {
-                controller.setSelectedColor(colorWheel.SelectedColor, false);
+                colorController.setSelectedColor(colorWheel.SelectedColor, false);
             }
             if (result == DialogResult.Yes)
             {
-                controller.setSelectedColor(colorWheel.SelectedColor, true);
+                colorController.setSelectedColor(colorWheel.SelectedColor, true);
             }
         }
 
         private void disableOtherMode()
         {
-            if (controller.mode == ColorModel.COLORMODES.screen)
+            if (colorController.mode == ColorModel.COLORMODES.screen)
             {
-                controller.mode = ColorModel.COLORMODES.manual;
+                colorController.mode = ColorModel.COLORMODES.manual;
                 btnStart.Text = "Start";
                 lblFPS.Text = "FPS: -";
 
@@ -251,13 +267,13 @@ namespace ArduinoControlCenter.Views
         //Enhance checkbox changed
         private void chkEnhance_CheckedChanged_1(object sender, EventArgs e)
         {
-            controller.setEnhanceMode(chkEnhance.Checked);
+            colorController.setEnhanceMode(chkEnhance.Checked);
         }
 
         //Smoothing changed
         private void tbSmooth_Scroll_1(object sender, EventArgs e)
         {
-            controller.setSampleDelay(tbSmoothScreen.Value);
+            colorController.setSampleDelay(tbSmoothScreen.Value);
         }
 
         //Capture average color clicked
@@ -266,13 +282,13 @@ namespace ArduinoControlCenter.Views
             if (btnStart.Text == "Start")
             {
                 //Do auto color detection
-                controller.mode = ColorModel.COLORMODES.screen;
+                colorController.mode = ColorModel.COLORMODES.screen;
                 btnStart.Text = "Stop";
             }
             else
             {
                 //set GUI for manual mode
-                controller.mode = ColorModel.COLORMODES.manual;
+                colorController.mode = ColorModel.COLORMODES.manual;
                 lblFPS.Text = "FPS: -";
                 btnStart.Text = "Start";
             }
@@ -288,7 +304,7 @@ namespace ArduinoControlCenter.Views
             if (btnStartFade.Text == "Start")
             {
                 //Do auto color detection
-                controller.mode = ColorModel.COLORMODES.fade;
+                colorController.mode = ColorModel.COLORMODES.fade;
                 btnStartFade.Text = "Stop";
                 tbSmoothFade.Enabled = false;
                 pnlStartColor.Enabled = false;
@@ -297,7 +313,7 @@ namespace ArduinoControlCenter.Views
             else
             {
                 //set GUI for manual mode
-                controller.mode = ColorModel.COLORMODES.manual;
+                colorController.mode = ColorModel.COLORMODES.manual;
                 btnStartFade.Text = "Start";
                 tbSmoothFade.Enabled = true;
                 pnlStartColor.Enabled = true;
@@ -307,7 +323,7 @@ namespace ArduinoControlCenter.Views
 
         private void tbSmoothFade_Scroll(object sender, EventArgs e)
         {
-            controller.setFadeDuration(tbSmoothFade.Value);
+            colorController.setFadeDuration(tbSmoothFade.Value);
         }
 
         private void panel2_Click(object sender, EventArgs e)
@@ -323,7 +339,7 @@ namespace ArduinoControlCenter.Views
             ColorPickerDialog p = (ColorPickerDialog)sender;
 
             pnlStartColor.BackColor = p.selectedColor;
-            controller.setFadeStartColor(p.selectedColor);
+            colorController.setFadeStartColor(p.selectedColor);
 
             e.Cancel = true;
             p.Hide();
@@ -342,7 +358,7 @@ namespace ArduinoControlCenter.Views
             ColorPickerDialog p = (ColorPickerDialog)sender;
 
             pnlStopColor.BackColor = p.selectedColor;
-            controller.setFadeStopColor(p.selectedColor);
+            colorController.setFadeStopColor(p.selectedColor);
 
             e.Cancel = true;
             p.Hide();
@@ -438,14 +454,29 @@ namespace ArduinoControlCenter.Views
             if (btnCommAction.Text == "Connect")
             {
                 appController.openComm();
-                btnCommAction.Text = "Disconnect";
             }
             else
             {
                 appController.closeComm();
+            }
+        }
+
+        public void setComLabels() 
+        {
+            if (btnCommAction.Text == "Connect")
+            {
+                btnCommAction.Text = "Disconnect";
+            }
+            else
+            {
                 btnCommAction.Text = "Connect";
             }
         }
         #endregion
+
+        private void chkReconnectCom_CheckedChanged(object sender, EventArgs e)
+        {
+            appController.setAutoReconnect(chkReconnectCom.Checked);
+        }
     }
 }
