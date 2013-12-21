@@ -37,6 +37,7 @@ namespace ArduinoControlCenter.Utils.Settings
             //settings model settings
             Properties.Settings.Default.autoStartOn = settingsModel.startOnBoot;
             Properties.Settings.Default.autoReconnect = settingsModel.autoReconnect;
+            Properties.Settings.Default.startMinimized = settingsModel.startMinimized;
 
             Properties.Settings.Default.Save();
         }
@@ -77,6 +78,7 @@ namespace ArduinoControlCenter.Utils.Settings
 
             setModel.startOnBoot = Properties.Settings.Default.autoStartOn;
             setModel.autoReconnect = Properties.Settings.Default.autoReconnect;
+            setModel.startMinimized = Properties.Settings.Default.startMinimized;
 
             return setModel;
         }

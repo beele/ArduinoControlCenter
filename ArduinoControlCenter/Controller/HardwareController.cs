@@ -104,7 +104,8 @@ namespace ArduinoControlCenter.Controller
                 _hardwareModel.calculatedCPUTemperature = calculatedTemp;
                 _hardwareModel.highestCoreTemp = highestTemp;
 
-                if (_hardwareModel.quietModeEnabled)
+                //TODO: paramterise temperature override for quiet mode!
+                if (_hardwareModel.quietModeEnabled && _hardwareModel.highestCoreTemp < 70)
                 {
                     _hardwareModel.calculatedSpeed = _hardwareModel.quietModeSpeed;
                 }

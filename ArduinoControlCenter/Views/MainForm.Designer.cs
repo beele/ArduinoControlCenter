@@ -46,6 +46,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.lblCurrentManual = new System.Windows.Forms.Label();
+            this.colorWheel = new Components.ColorWheel.ColorChooser1();
             this.pnlColorManual = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lblMax = new System.Windows.Forms.Label();
@@ -114,8 +115,8 @@
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.ti1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.colorWheel = new Components.ColorWheel.ColorChooser1();
             this.cms1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.chkStartMinimized = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.gbmodel.SuspendLayout();
             this.tabcon.SuspendLayout();
@@ -157,6 +158,7 @@
             // 
             // gbmodel
             // 
+            this.gbmodel.Controls.Add(this.chkStartMinimized);
             this.gbmodel.Controls.Add(this.chkReconnectCom);
             this.gbmodel.Controls.Add(this.btnRefresh);
             this.gbmodel.Controls.Add(this.cmbComms);
@@ -305,6 +307,15 @@
             this.lblCurrentManual.Size = new System.Drawing.Size(67, 13);
             this.lblCurrentManual.TabIndex = 14;
             this.lblCurrentManual.Text = "Current color";
+            // 
+            // colorWheel
+            // 
+            this.colorWheel.Location = new System.Drawing.Point(94, 61);
+            this.colorWheel.Name = "colorWheel";
+            this.colorWheel.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.colorWheel.Size = new System.Drawing.Size(243, 190);
+            this.colorWheel.TabIndex = 11;
+            this.colorWheel.Load += new System.EventHandler(this.colorWheel_Load);
             // 
             // pnlColorManual
             // 
@@ -841,20 +852,20 @@
             // 
             this.label19.AutoSize = true;
             this.label19.BackColor = System.Drawing.Color.Transparent;
-            this.label19.Location = new System.Drawing.Point(169, 221);
+            this.label19.Location = new System.Drawing.Point(149, 221);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(87, 13);
+            this.label19.Size = new System.Drawing.Size(108, 13);
             this.label19.TabIndex = 15;
-            this.label19.Text = "quiet pwm speed";
+            this.label19.Text = "constant pwm speed:";
             // 
             // chkQuietMode
             // 
             this.chkQuietMode.AutoSize = true;
             this.chkQuietMode.Location = new System.Drawing.Point(17, 221);
             this.chkQuietMode.Name = "chkQuietMode";
-            this.chkQuietMode.Size = new System.Drawing.Size(80, 17);
+            this.chkQuietMode.Size = new System.Drawing.Size(82, 17);
             this.chkQuietMode.TabIndex = 14;
-            this.chkQuietMode.Text = "Quiet mode";
+            this.chkQuietMode.Text = "Static mode";
             this.chkQuietMode.UseVisualStyleBackColor = true;
             this.chkQuietMode.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
@@ -1011,19 +1022,21 @@
             this.ti1.Visible = true;
             this.ti1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
-            // colorWheel
-            // 
-            this.colorWheel.Location = new System.Drawing.Point(94, 61);
-            this.colorWheel.Name = "colorWheel";
-            this.colorWheel.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.colorWheel.Size = new System.Drawing.Size(243, 190);
-            this.colorWheel.TabIndex = 11;
-            this.colorWheel.Load += new System.EventHandler(this.colorWheel_Load);
-            // 
             // cms1
             // 
             this.cms1.Name = "cms1";
-            this.cms1.Size = new System.Drawing.Size(153, 26);
+            this.cms1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // chkStartMinimized
+            // 
+            this.chkStartMinimized.AutoSize = true;
+            this.chkStartMinimized.Location = new System.Drawing.Point(11, 221);
+            this.chkStartMinimized.Name = "chkStartMinimized";
+            this.chkStartMinimized.Size = new System.Drawing.Size(97, 17);
+            this.chkStartMinimized.TabIndex = 20;
+            this.chkStartMinimized.Text = "Start Minimized";
+            this.chkStartMinimized.UseVisualStyleBackColor = true;
+            this.chkStartMinimized.CheckedChanged += new System.EventHandler(this.chkStartMinimized_CheckedChanged);
             // 
             // MainForm
             // 
@@ -1164,5 +1177,6 @@
         private System.Windows.Forms.Label lblPWM2;
         private System.Windows.Forms.Label lblPWM1;
         private System.Windows.Forms.ContextMenuStrip cms1;
+        private System.Windows.Forms.CheckBox chkStartMinimized;
     }
 }

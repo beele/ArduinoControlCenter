@@ -45,7 +45,9 @@ namespace ArduinoControlCenter.Controller
             _gui.settingsModel = _settingsModel;
             _gui.init(_colorModel, _hardwareModel, _messageHub);
 
-            checkAutoStartStatus();
+            checkWindowState();
+            //TODO: this is not working at the moment, start up the application with windows by making a sheduled task!
+            //checkAutoStartStatus();
         }
 
         public void onGuiFormLoaded()
@@ -66,10 +68,12 @@ namespace ArduinoControlCenter.Controller
             _gui.setComLabels();
         }
 
-        public void setAutoStartup(bool autoStart)
+        private void checkWindowState()
         {
-            _settingsModel.startOnBoot = autoStart;
-            checkAutoStartStatus();
+            if (_settingsModel.startMinimized)
+            {
+                _gui.WindowState = FormWindowState.Minimized;
+            }
         }
 
         private void checkAutoStartStatus()
@@ -97,9 +101,21 @@ namespace ArduinoControlCenter.Controller
             _messageHub.Publish(new SettingsModelMessage(this, "update"));
         }
 
+        public void setAutoStartup(bool autoStart)
+        {
+            _settingsModel.startOnBoot = autoStart;
+            checkAutoStartStatus();
+        }
+
         public void setAutoReconnect(bool autoConnect)
         {
             _settingsModel.autoReconnect = autoConnect;
+            _messageHub.Publish(new SettingsModelMessage(this, "update"));
+        }
+
+        public void setStartMinimized(bool startMinimized)
+        {
+            _settingsModel.startMinimized = startMinimized;
             _messageHub.Publish(new SettingsModelMessage(this, "update"));
         }
 
@@ -109,6 +125,6 @@ namespace ArduinoControlCenter.Controller
 
             _comm.stop();
             _colorController.dispose();
-        }
+        } 
     }
 }

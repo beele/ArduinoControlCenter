@@ -12,6 +12,7 @@ namespace ArduinoControlCenter.Model
 
         private bool _startOnBoot;
         private bool _autoReconnect;
+        private bool _startMinimized;
 
         public SettingsModel(TinyMessengerHub messageHub)
         {
@@ -35,6 +36,12 @@ namespace ArduinoControlCenter.Model
         {
             get { return _autoReconnect; }
             set { _autoReconnect = value; }
+        }
+
+        public bool startMinimized
+        {
+            get { return _startMinimized; }
+            set { _startMinimized = value; }
         }
         #endregion
     }

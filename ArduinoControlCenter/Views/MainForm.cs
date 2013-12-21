@@ -151,6 +151,7 @@ namespace ArduinoControlCenter.Views
         private void settingsModelUpdated()
         {
             chkReconnectCom.Checked = settingsModel.autoReconnect;
+            chkStartMinimized.Checked = settingsModel.startMinimized;
         }
 
         //When the FPS has changed!
@@ -477,6 +478,11 @@ namespace ArduinoControlCenter.Views
         private void chkReconnectCom_CheckedChanged(object sender, EventArgs e)
         {
             appController.setAutoReconnect(chkReconnectCom.Checked);
+        }
+
+        private void chkStartMinimized_CheckedChanged(object sender, EventArgs e)
+        {
+            appController.setStartMinimized(chkStartMinimized.Checked);
         }
     }
 }
