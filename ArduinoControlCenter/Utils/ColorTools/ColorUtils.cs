@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace ArduinoControlCenter.Utils.ColorUtils
+namespace ArduinoControlCenter.Utils.ColorTools
 {
     class ColorUtils
     {

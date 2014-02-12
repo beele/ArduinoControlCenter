@@ -2,7 +2,8 @@
 using System.Diagnostics;
 using System.Threading;
 using ArduinoControlCenter.Model;
-using ArduinoControlCenter.Utils.ColorUtils;
+using ArduinoControlCenter.Utils.ColorTools;
+using ArduinoControlCenter.Utils;
 
 namespace ArduinoControlCenter.Controller.Modes
 {
@@ -35,7 +36,9 @@ namespace ArduinoControlCenter.Controller.Modes
 
         private void getAverage()
         {
-            BitmapUtils bitmapper = new BitmapUtils(model);
+            IBitmapUtils bitmapper = new BitmapUtils(model);
+            //IBitmapUtils bitmapper = new DirectXBitmapUtils(model);
+
             Stopwatch watch = new Stopwatch();
 
             long prevTime = 0;
@@ -45,6 +48,7 @@ namespace ArduinoControlCenter.Controller.Modes
                 watch.Start();
 
                 model.color = bitmapper.getAverageScreenColor(); ;
+
                 Thread.Sleep(model.delay);
 
                 long time = watch.ElapsedMilliseconds - prevTime;

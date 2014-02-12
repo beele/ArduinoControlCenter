@@ -45,6 +45,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -80,6 +81,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Utils\HardwareMonitor\OpenHardwareMonitorLib.dll</HintPath>
     </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
@@ -104,6 +106,7 @@
     <Compile Include="Controller\HardwareController.cs" />
     <Compile Include="Model\HardwareModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
+    <Compile Include="Utils\ColorTools\DirectXBitmapUtils.cs" />
     <Compile Include="Utils\HardwareMonitor\LinearDataPoint.cs" />
     <Compile Include="Utils\HardwareMonitor\LinearFunctionInterpolator.cs" />
     <Compile Include="Utils\HardwareMonitor\UpdateVisitor.cs" />
@@ -113,6 +116,7 @@
     <Compile Include="Utils\HardwareMonitor\WMI\WmiProvider.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utils\IBitmapUtils.cs" />
     <Compile Include="Utils\Messenger\ColorModelMessage.cs" />
     <Compile Include="Utils\Messenger\HardwareModelMessage.cs" />
     <Compile Include="Utils\Messenger\MessageEnums.cs" />

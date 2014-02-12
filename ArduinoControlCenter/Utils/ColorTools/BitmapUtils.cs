@@ -6,20 +6,19 @@ using ArduinoControlCenter.Model;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace ArduinoControlCenter.Utils.ColorUtils
+namespace ArduinoControlCenter.Utils.ColorTools
 {
-    class BitmapUtils
+    class BitmapUtils : IBitmapUtils
     {
         private ColorUtils cUtils;
         private Color averageColor;
-        private bool enhanceColor;
 
         private ColorModel model;
+        private Size size;
 
-        Size size;
-        Bitmap bmp;
-        BitmapData srcData;
-        Graphics graphics;
+        private Bitmap bmp;
+        private BitmapData srcData;
+        private Graphics graphics;
         long[] totals;
 
         public BitmapUtils(ColorModel model)
@@ -34,8 +33,6 @@ namespace ArduinoControlCenter.Utils.ColorUtils
 
         public Color getAverageScreenColor()
         {
-            enhanceColor = model.enhanceColor;
-
             //Load bitmap!
             graphics.CopyFromScreen(0, 0, 0, 0, size);
             //Bitmap bmp = CaptureScreen.CaptureDesktop();
@@ -75,7 +72,7 @@ namespace ArduinoControlCenter.Utils.ColorUtils
             //Console.WriteLine("Original color ==> R:" + r + " G:" + g + " B:" + b);
 
             //Modify the color if needed
-            if (enhanceColor)
+            if (model.enhanceColor)
             {
                 averageColor = cUtils.processColor(r, g, b);
             }

@@ -205,6 +205,10 @@ namespace ArduinoControlCenter.Views
             this.WindowState = FormWindowState.Normal;
             this.ShowInTaskbar = true;
             ti1.Visible = false;
+
+            //Update gui
+            hardwareModelUpdated();
+            settingsModelUpdated();
         }
 
         //Properly close the connection when the form is closed!
