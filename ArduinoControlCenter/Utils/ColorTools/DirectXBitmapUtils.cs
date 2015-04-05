@@ -5,12 +5,12 @@ using ArduinoControlCenter.Utils.ScreenCapture;
 using ArduinoControlCenter.Model;
 using System.Diagnostics;
 using System.Windows.Forms;
-using SlimDX.Direct3D9;
-using SlimDX;
+/*using SlimDX.Direct3D9;
+using SlimDX;*/
 
 namespace ArduinoControlCenter.Utils.ColorTools
 {
-    class DirectXBitmapUtils : IBitmapUtils
+    class DirectXBitmapUtils //: IBitmapUtils
     {
         private ColorUtils cUtils;
         private Color averageColor;
@@ -18,7 +18,7 @@ namespace ArduinoControlCenter.Utils.ColorTools
         private ColorModel model;
         private Size size;
 
-        private Device d;
+       /* private Device d;
         private Surface s;
         private DataRectangle dr;
         private DataStream gs;
@@ -95,6 +95,6 @@ namespace ArduinoControlCenter.Utils.ColorTools
                 gs.Dispose();
             }
             d.Dispose();
-        }
+        }*/
     }
 }
