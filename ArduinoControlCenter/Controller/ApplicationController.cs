@@ -4,9 +4,6 @@ using ArduinoControlCenter.Utils.SerialComm;
 using ArduinoControlCenter.Utils.Settings;
 using ArduinoControlCenter.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TinyMessenger;
 
@@ -34,7 +31,7 @@ namespace ArduinoControlCenter.Controller
             _hardwareModel = SettingsUtils.readHardwareModelSettings(_messageHub);
             _colorModel = SettingsUtils.readColorModelSettings(_messageHub);
 
-            _colorController = new ColorController(_colorModel, _messageHub, gui);
+            _colorController = new ColorController(_colorModel, _hardwareModel, _messageHub, gui);
             _temperatureController = new HardwareController(_hardwareModel, _messageHub, gui);
 
             _comm = new Communicator(_colorModel, _hardwareModel, _settingsModel);
@@ -68,11 +65,12 @@ namespace ArduinoControlCenter.Controller
             _gui.setComLabels();
         }
 
+        //TODO: This makes the app crash with a stackoverflow in winforms code... very weird, used to work before win 8.1/10
         private void checkWindowState()
         {
             if (_settingsModel.startMinimized)
             {
-                _gui.WindowState = FormWindowState.Minimized;
+                //_gui.WindowState = FormWindowState.Minimized;
             }
         }
 

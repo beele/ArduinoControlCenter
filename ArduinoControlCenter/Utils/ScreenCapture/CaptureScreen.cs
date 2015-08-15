@@ -16,30 +16,30 @@ namespace ArduinoControlCenter.Utils.ScreenCapture
         {
             SIZE size;
             IntPtr hBitmap;
-            IntPtr hDC = Win32Stuff.GetDC(Win32Stuff.GetDesktopWindow());
-            IntPtr hMemDC = GDIStuff.CreateCompatibleDC(hDC);
+            IntPtr hDC = Win32Wrapper.GetDC(Win32Wrapper.GetDesktopWindow());
+            IntPtr hMemDC = GDIWrapper.CreateCompatibleDC(hDC);
 
-            size.cx = Win32Stuff.GetSystemMetrics
-                      (Win32Stuff.SM_CXSCREEN);
+            size.cx = Win32Wrapper.GetSystemMetrics
+                      (Win32Wrapper.SM_CXSCREEN);
 
-            size.cy = Win32Stuff.GetSystemMetrics
-                      (Win32Stuff.SM_CYSCREEN);
+            size.cy = Win32Wrapper.GetSystemMetrics
+                      (Win32Wrapper.SM_CYSCREEN);
 
-            hBitmap = GDIStuff.CreateCompatibleBitmap(hDC, size.cx, size.cy);
+            hBitmap = GDIWrapper.CreateCompatibleBitmap(hDC, size.cx, size.cy);
 
             if (hBitmap != IntPtr.Zero)
             {
-                IntPtr hOld = (IntPtr)GDIStuff.SelectObject
+                IntPtr hOld = (IntPtr)GDIWrapper.SelectObject
                                        (hMemDC, hBitmap);
 
-                GDIStuff.BitBlt(hMemDC, 0, 0, size.cx , size.cy, hDC,
-                                               0, 0, GDIStuff.SRCCOPY);
+                GDIWrapper.BitBlt(hMemDC, 0, 0, size.cx , size.cy, hDC,
+                                               0, 0, GDIWrapper.SRCCOPY);
 
-                GDIStuff.SelectObject(hMemDC, hOld);
-                GDIStuff.DeleteDC(hMemDC);
-                Win32Stuff.ReleaseDC(Win32Stuff.GetDesktopWindow(), hDC);
+                GDIWrapper.SelectObject(hMemDC, hOld);
+                GDIWrapper.DeleteDC(hMemDC);
+                Win32Wrapper.ReleaseDC(Win32Wrapper.GetDesktopWindow(), hDC);
                 Bitmap bmp = System.Drawing.Image.FromHbitmap(hBitmap);
-                GDIStuff.DeleteObject(hBitmap);
+                GDIWrapper.DeleteObject(hBitmap);
                 GC.Collect();
                 return bmp;
             }

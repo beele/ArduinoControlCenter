@@ -133,7 +133,7 @@ namespace ArduinoControlCenter.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
         public int dp5Speed {
             get {
                 return ((int)(this["dp5Speed"]));

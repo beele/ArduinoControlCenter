@@ -32,8 +32,8 @@ namespace ArduinoControlCenter.Controller.Modes
             Console.WriteLine("Starting fade mode");
 
             isRunning = true;
-            startColor = model.startColor;
-            endColor = model.stopColor;
+            startColor = model.fadeStartColor;
+            endColor = model.fadeStopColor;
 
             thread = new System.Threading.Thread(fade);
             thread.IsBackground = true;
@@ -43,7 +43,7 @@ namespace ArduinoControlCenter.Controller.Modes
 
         private void fade()
         {
-            int steps = model.duration * 30; //Seconds times 30 for 30fps!
+            int steps = model.fadeDuration * 30; //Seconds times 30 for 30fps!
 
             int i = 0;
             while (isRunning && i < steps)

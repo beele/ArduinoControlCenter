@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace ArduinoControlCenter.Utils.ScreenCapture
 {
-    class GDIStuff
+    class GDIWrapper
     {
         #region Class Variables
         public const int SRCCOPY = 13369376;

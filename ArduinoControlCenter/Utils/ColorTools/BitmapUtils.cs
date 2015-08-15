@@ -72,7 +72,7 @@ namespace ArduinoControlCenter.Utils.ColorTools
             //Console.WriteLine("Original color ==> R:" + r + " G:" + g + " B:" + b);
 
             //Modify the color if needed
-            if (model.enhanceColor)
+            if (model.doEnhancementOfColor)
             {
                 averageColor = cUtils.processColor(r, g, b);
             }

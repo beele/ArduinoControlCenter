@@ -57,8 +57,9 @@ namespace ArduinoControlCenter.Controller
             //computer.HDDEnabled = true;
             //computer.MainboardEnabled = true;
             //computer.RAMEnabled = true;
+
             _computer.Open();
-            _provider = new WmiProvider(_computer);
+            _provider = new WmiProvider(_computer);   
 
             foreach (IHardware hw in _computer.Hardware)
             {

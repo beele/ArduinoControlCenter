@@ -11,17 +11,20 @@ namespace ArduinoControlCenter.Controller
     public class ColorController
     {
         private MainForm _gui;
-        private ColorModel _colorModel;
         private TinyMessengerHub _messageHub;
 
         public bool isDisposed;
-        private ColorModel.COLORMODES _mode;
 
+        private ColorModel _colorModel;
+        private HardwareModel _hwModel;
+
+        private ColorModel.COLORMODES _mode;
         private IColorMode activeMode;
 
-        public ColorController(ColorModel model, TinyMessengerHub messageHub, MainForm gui)
+        public ColorController(ColorModel model, HardwareModel hwModel, TinyMessengerHub messageHub, MainForm gui)
         {
             this._colorModel = model;
+            this._hwModel = hwModel;
             this._messageHub = messageHub;
             this._gui = gui;
             this.isDisposed = false;
@@ -30,8 +33,7 @@ namespace ArduinoControlCenter.Controller
         public void autoStartMode()
         {
             this._mode = ColorModel.COLORMODES.manual;
-            //TODO: this message should contain the active mode, so the view can be updated accordingly!
-            _messageHub.Publish(new ColorControllerMessage(this, "update"));
+            _messageHub.Publish(new ColorModelMessage(this, COLOR_FIELDS.COLOR));
         }
 
         //Data and model fields.
@@ -43,43 +45,6 @@ namespace ArduinoControlCenter.Controller
             }
             _colorModel.color = color;
         }
-
-        public void setFadeStartColor(Color c)
-        {
-            _colorModel.startColor = c;
-        }
-
-        public void setFadeStopColor(Color c)
-        {
-            _colorModel.stopColor = c;
-        }
-
-        public void setEnhanceMode(bool doEnhance)
-        {
-            _colorModel.enhanceColor = doEnhance;
-        }
-
-        public void setSampleDelay(int delay)
-        {
-            _colorModel.delay = delay;
-        }
-
-        public void setFadeDuration(int duration)
-        {
-            _colorModel.duration = duration;
-        }
-
-        public void dispose()
-        {
-            if (activeMode != null)
-            {
-                activeMode.stop();
-            }
-            isDisposed = true;
-        }
-
-        #region --== Properties ==--
-        //PROPERTIES
 
         public ColorModel.COLORMODES mode
         {
@@ -102,16 +67,16 @@ namespace ArduinoControlCenter.Controller
                     switch (_mode)
                     {
                         case ColorModel.COLORMODES.screen:
-                            if (activeMode!= null)
+                            if (activeMode != null)
                             {
                                 activeMode.stop();
                                 activeMode = null;
                             }
                             _colorModel.delay = _gui.tbSmoothScreen.Value;
-                            _colorModel.enhanceColor = true;
+                            _colorModel.doEnhancementOfColor = true;
                             activeMode = new AverageColorMode(_colorModel);
                             activeMode.start();
-                        break;
+                            break;
                         case ColorModel.COLORMODES.fade:
                             if (activeMode != null)
                             {
@@ -120,11 +85,28 @@ namespace ArduinoControlCenter.Controller
                             }
                             activeMode = new FadeColorMode(_colorModel);
                             activeMode.start();
-                        break;
+                            break;
+                        case ColorModel.COLORMODES.temp:
+                            if (activeMode != null)
+                            {
+                                activeMode.stop();
+                                activeMode = null;
+                            }
+                            activeMode = new TemperarureColorMode(_colorModel, _hwModel);
+                            activeMode.start();
+                            break;
                     }
                 }
             }
         }
-        #endregion
+
+        public void dispose()
+        {
+            if (activeMode != null)
+            {
+                activeMode.stop();
+            }
+            isDisposed = true;
+        }
     }
 }

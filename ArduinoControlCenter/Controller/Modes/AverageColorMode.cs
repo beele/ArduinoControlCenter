@@ -25,7 +25,7 @@ namespace ArduinoControlCenter.Controller.Modes
         {
             Console.WriteLine("Starting average color finder");
 
-            enhanceColor = model.enhanceColor;
+            enhanceColor = model.doEnhancementOfColor;
             isRunning = true;
             
             thread = new System.Threading.Thread(getAverage);
@@ -37,10 +37,8 @@ namespace ArduinoControlCenter.Controller.Modes
         private void getAverage()
         {
             IBitmapUtils bitmapper = new BitmapUtils(model);
-            //IBitmapUtils bitmapper = new DirectXBitmapUtils(model);
 
             Stopwatch watch = new Stopwatch();
-
             long prevTime = 0;
 
             while (isRunning)

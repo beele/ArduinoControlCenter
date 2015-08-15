@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace ArduinoControlCenter.Utils.ScreenCapture
 {
-    class Win32Stuff
+    class Win32Wrapper
     {
 
         #region Class Variables
