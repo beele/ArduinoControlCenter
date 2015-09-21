@@ -65,12 +65,12 @@ namespace ArduinoControlCenter.Controller
             _gui.setComLabels();
         }
 
-        //TODO: This makes the app crash with a stackoverflow in winforms code... very weird, used to work before win 8.1/10
         private void checkWindowState()
         {
             if (_settingsModel.startMinimized)
             {
-                //_gui.WindowState = FormWindowState.Minimized;
+                _gui.WindowState = FormWindowState.Minimized;
+                _gui.ShowInTaskbar = false;
             }
         }
 

@@ -160,24 +160,22 @@ namespace ArduinoControlCenter.Views
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (FormWindowState.Minimized == this.WindowState)
+            if (WindowState == FormWindowState.Minimized)
             {
                 ti1.Visible = true;
                 ti1.ShowBalloonTip(500);
-                //this.Hide();
-                this.ShowInTaskbar = false;
-                this.WindowState = FormWindowState.Minimized;
+
+                //This line causes a stack overflow error in the windows forms dll WTF!
+                //ShowInTaskbar = false;
             }
-            else if (FormWindowState.Normal == this.WindowState)
-            {
-                ti1.Visible = false;
-            }
+            //The same line here does not cause a stack overflow error! Double WTF!!
+            ShowInTaskbar = false;
         }
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Normal;
-            this.ShowInTaskbar = true;
+            WindowState = FormWindowState.Normal;
+            ShowInTaskbar = true;
             ti1.Visible = false;
 
             //Update gui

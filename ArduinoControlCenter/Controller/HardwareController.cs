@@ -5,10 +5,7 @@ using ArduinoControlCenter.Views;
 using OpenHardwareMonitor.Hardware;
 using OpenHardwareMonitor.WMI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using TinyMessenger;
 
@@ -63,6 +60,7 @@ namespace ArduinoControlCenter.Controller
 
             foreach (IHardware hw in _computer.Hardware)
             {
+                Console.WriteLine(hw.Name);
                 if (hw.HardwareType == HardwareType.CPU)
                 {
                     foreach (ISensor sensor in hw.Sensors)
@@ -90,29 +88,45 @@ namespace ArduinoControlCenter.Controller
                 _computer.Accept(_visitor);
                 _provider.Update();
 
-                int calculatedTemp = 0;
-                int highestTemp = 0;
-                foreach (ISensor sensor in _sensors)
+                if(_sensors != null && _sensors.Count > 0)
                 {
-                    int sensorTemp = (int)sensor.Value;
-                    calculatedTemp += (int)sensorTemp;
-                    if (sensorTemp > highestTemp)
+                    int calculatedTemp = 0;
+                    int highestTemp = 0;
+                    foreach (ISensor sensor in _sensors)
                     {
-                        highestTemp = sensorTemp;
+                        int sensorTemp = (int)sensor.Value;
+                        calculatedTemp += (int)sensorTemp;
+                        if (sensorTemp > highestTemp)
+                        {
+                            highestTemp = sensorTemp;
+                        }
                     }
-                }
-                calculatedTemp = calculatedTemp / _sensors.Count;
-                _hardwareModel.calculatedCPUTemperature = calculatedTemp;
-                _hardwareModel.highestCoreTemp = highestTemp;
+                    calculatedTemp = calculatedTemp / _sensors.Count;
+                    _hardwareModel.calculatedCPUTemperature = calculatedTemp;
+                    _hardwareModel.highestCoreTemp = highestTemp;
 
-                //TODO: paramterise temperature override for quiet mode!
-                if (_hardwareModel.quietModeEnabled && _hardwareModel.highestCoreTemp < 70)
-                {
-                    _hardwareModel.calculatedSpeed = _hardwareModel.quietModeSpeed;
+                    //TODO: paramterise temperature override for quiet mode! For now we override at 85°C!
+                    if (_hardwareModel.quietModeEnabled && _hardwareModel.highestCoreTemp < 85)
+                    {
+                        _hardwareModel.calculatedSpeed = _hardwareModel.quietModeSpeed;
+                    }
+                    else if(_hardwareModel.highestCoreTemp < 85)
+                    {
+                        _hardwareModel.calculatedSpeed = _linearDataInterpolator.extrapolateSpeedFromTemperature(highestTemp).speed;
+                    }
+                    else
+                    {
+                        //When the temp is higher then the max safe override to 100% fan speed!
+                        _hardwareModel.calculatedSpeed = 100;
+                    }
                 }
                 else
                 {
-                    _hardwareModel.calculatedSpeed = _linearDataInterpolator.extrapolateSpeedFromTemperature(highestTemp).speed;
+                    //If no sensors are found, set the calculated and highest temps to -1 and the fan speed to a static 70%
+                    _hardwareModel.calculatedCPUTemperature = -1;
+                    _hardwareModel.highestCoreTemp = -1;
+                    _hardwareModel.quietModeEnabled = true;
+                    _hardwareModel.calculatedSpeed = 70;
                 }
 
                 _messageHub.Publish(new HardwareModelMessage(this,"update"));
